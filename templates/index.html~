@@ -1,0 +1,16 @@
+<html>
+  <body>
+
+    <form method="post" action="/">
+
+      <input type="submit" value="Forward" name="Forward"/>
+      <input type="submit" value="Stop" name="Stop" />
+      <input type="submit" value="Backwards" name="Backwards" />
+      <input type="submit" value="Left" name="Left" />
+      <input type="submit" value="Right" name="Right" />
+      
+    </form>
+    
+  </body>
+</html>
+    
