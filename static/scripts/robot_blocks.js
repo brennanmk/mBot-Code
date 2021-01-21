@@ -48,6 +48,18 @@ Blockly.Blocks['gpio_set'] = {
    this.setHelpUrl("");
     }
   };
+  Blockly.Blocks['debug_print'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Print")
+          .appendField(new Blockly.FieldTextInput("message"), "MSG");
+      this.setInputsInline(true);
+      this.setColour(230);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
 
 // Define the blocks behaviour
 Blockly.Python['gpio_set'] = function(block) {
@@ -64,8 +76,14 @@ Blockly.Python['controls_sleep'] = function(block) {
   var code = 'time.sleep(' + value_name + ')\n';
   return code;
 };
+Blockly.Python['debug_print'] = function(block) {
+  var text_msg = block.getFieldValue('MSG');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'print(' + text_msg + ')\n';
+  return code;
+};
 
-Blockly.Python['controls_start'] = function(block) {
+Blockly.Python['gpio_init'] = function(block) {
   return 'import RPi.GPIO as GPIO\nimport time\nGPIO.setmode(GPIO.BOARD)\n';
 };
 Blockly.Python['gpio_cleanup'] = function(block) {
