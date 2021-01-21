@@ -1,42 +1,59 @@
-from flask import Flask, render_template, request
-from motor import Motor
+from flask import Flask, render_template, request, jsonify
+import motorControl
+import lineSensor
+import threading
+import time
+
 
 app = Flask(__name__)
+running = True
+value = lineSensor.readSensor()
 
-motorLeft = Motor(35,23,24)
-#motorRight = Motor(32,21,22)
+def updateSensor():
+              global value
+
+              print('start of thread')
+              while running: # global variable to stop loop
+                            value = lineSensor.readSensor()
+                            time.sleep(1)
+              print('stop of thread')
+              
+@app.route("/")
+def indexRefresh(device=None, action=None):
+              threading.Thread(target=updateSensor).start()
+              return render_template('index.html')
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        if request.form.get('Forward') == 'Forward':
-            #motorRight.write(100)
-            motorLeft.write(100)
-            print("Motor Forward")
+              if request.method == 'POST':
+                            if request.form.get('Forward') == 'Forward':
+                                          motorControl.motorControl(1)
+                                          print("Motor Forward")
+                            elif  request.form.get('Stop') == 'Stop':
+                                          motorControl.motorControl(0)
+                                          print("Motor Stop")
+                            elif request.form.get('Backwards') == 'Backwards':
+                                          motorControl.motorControl(2)
+                                          print("Motor Back")
+                            elif request.form.get("Left")==("Left"):
+                                          motorControl.motorControl(3)
+                                          print("Motor Left")
+                            elif request.form.get("Right")==("Right"):
+                                          motorControl.motorControl(4)
+                                          print("Motor Right")
+                            else:
+                                          return render_template('index.html')
 
-        elif request.form.get('Stop') == 'Stop':
-            #motorRight.write(0)
-            motorLeft.stop()
-            print("Motor Stop")
+              elif request.method == 'GET':
+                            print("No Post Back Call")
+              return render_template('index.html')
 
-        elif request.form.get('Backwards') == 'Backwards':
-            #motorRight.write(-100)
-            motorLeft.write(-100)
-            print("Motor Back")
-
-        elif request.form.get("Left")==("Left"):
-            #motorRight.write(100)
-            motorLeft.write(-100)
-            print("Motor Left")
-
-        elif request.form.get("Right")==("Right"):
-            #motorRight.write(-100)
-            motorLeft.write(100)
-            print("Motor Right")
-
-        else:
-            return render_template("index.html")
-    elif request.method == 'GET':
-            print("No Post Back Call")
-    
-    return render_template("index.html")         
+@app.route('/update', methods=['POST'])
+def update():
+              return jsonify({
+                            'title': 'Line Finder',
+                            'value': value
+                            })
+if __name__ == '__main__':
+              app.run()
+                  
