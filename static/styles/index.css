@@ -1,0 +1,26 @@
+main {
+  height: auto;
+}
+
+header {
+  background-color: green;
+  width: 100%;
+}
+
+h1 {
+  width: 400px;
+  position: relative;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 1.8em;
+  line-height: 2.4em;
+}
+
+.blockly-editor {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #eee;
+}

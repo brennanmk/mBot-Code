@@ -48,6 +48,12 @@ def index():
                             print("No Post Back Call")
               return render_template('index.html')
 
+@app.route("/editor",methods=['GET','POST'])
+def editor():
+    if request.method == 'GET':
+        return render_template('editor.html')
+
+
 @app.route('/update', methods=['POST'])
 def update():
               return jsonify({
