@@ -1,14 +1,59 @@
 <html>
-  <body>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      .button {
+	  background-color: #36393e;
+	  border: none;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+      }
+      
+      .item1 { grid-area: up; }
+      .item2 { grid-area: left; }
+      .item3 { grid-area: stop; }
+      .item4 { grid-area: right; }
+      .item5 { grid-area: down; }
+      .item6 { grid-area: temp1; }
+      .item7 { grid-area: temp2; }
+      .item8 { grid-area: temp3; }
+      .item9 { grid-area: temp4; }
+      
+      
+      .grid-container {
+	  padding-top:40vh;
+	  display: grid;
+	  grid-template-areas:
+	      'temp1 up temp2'
+	      'left stop right'
+	      'temp3 down temp4';
+	  grid-gap: 10px;
+      }
+
+      .grid-container > div {
+	  background-color: rgba(255, 255, 255, 0.8);
+	  text-align: center;
+	  padding: 20px 0;
+	  font-size: 30px;
+      }
+    </style>
+   </head>
+  <body style="background-color:#1e2124;">
 
     <form method="post" action="/">
-
-      <input type="submit" value="Forward" name="Forward"/>
-      <input type="submit" value="Stop" name="Stop" />
-      <input type="submit" value="Backwards" name="Backwards" />
-      <input type="submit" value="Left" name="Left" />
-      <input type="submit" value="Right" name="Right" />
-      
+      <div class="grid-container">
+	<button class="button item1" value="Forward" name="Forward"><i class="fa fa-arrow-up"></i></button>
+	<button class="button item2" value="Left" name="Left"><i class="fa fa-arrow-left"></i></button>
+	<button class="button item3" value="Stop" name="Stop"><i class="fa fa-stop"></i></button>
+	<button class="button item4" value="Right" name="Right"><i class="fa fa-arrow-right"></i></button>
+	<button class="button item5" value="Backwards" name="Backwards"><i class="fa fa-arrow-down"></i></button>
+      </div>
     </form>
     
   </body>
