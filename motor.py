@@ -10,7 +10,7 @@ class Motor:
         self.pin_dirB = p2
 
         # Setup pinout
-        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.pin_enable,GPIO.OUT)
         GPIO.setup(self.pin_dirA,GPIO.OUT)
         GPIO.setup(self.pin_dirB,GPIO.OUT)

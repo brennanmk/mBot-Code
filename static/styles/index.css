@@ -8,12 +8,10 @@ header {
 }
 
 h1 {
-  width: 400px;
-  position: relative;
-  margin: 0 auto;
+  margin: 8px;
   color: #fff;
   font-size: 1.8em;
-  line-height: 2.4em;
+  display: inline;
 }
 
 .blockly-editor {

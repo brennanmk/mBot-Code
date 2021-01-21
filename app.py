@@ -52,6 +52,8 @@ def index():
 def editor():
     if request.method == 'GET':
         return render_template('editor.html')
+    else:
+        print(request.form.get("code"))
 
 
 @app.route('/update', methods=['POST'])

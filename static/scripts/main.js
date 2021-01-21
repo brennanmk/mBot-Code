@@ -6,17 +6,24 @@
  (function() {
 
   // Run the blockly code
-  function handlePlay(event) {
-    loadWorkspace(event.target);
-    let code = Blockly.JavaScript.workspaceToCode(Blockly.getMainWorkspace());
-    // Eval can be dangerous. For more controlled execution, check
-    // https://github.com/NeilFraser/JS-Interpreter.
-    try {
-      eval(code);
-    } catch (error) {
-      console.log(error);
-    }
+  function executeBlocks(event) {
+    let code = Blockly.Python.workspaceToCode(Blockly.getMainWorkspace());
+    
+    // Send POST request
+    $.ajax({
+      url: "/editor",
+      method: "POST",
+      data: {
+        code: code
+      },
+      success: function(res) {
+        alert("Code deployed successfully!");
+      }
+    });
+
   }
+
+  document.querySelector('#run').addEventListener('click', executeBlocks);
 
   // Actually inject main code into page
   Blockly.inject('blocklyDiv', {
