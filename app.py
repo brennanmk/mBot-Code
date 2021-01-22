@@ -1,20 +1,29 @@
 from flask import Flask, render_template, request, jsonify
+import RPi.GPIO as GPIO
 import mBot.motorControl as motorControl
 import mBot.lineSensor as lineSensor
+import mBot.distanceSensor as distanceSensor
+import mBot.bot_config as config
 import threading
 import time
 
-
+# Setup flask app
 app = Flask(__name__)
+GPIO.setmode(GPIO.BCM)
 running = True
-value = lineSensor.readSensor()
+
+# Setup bot components
+line = lineSensor.LineSensor(config.PINS['line/sense'])
+distance = distanceSensor.DistanceSensor(config.PINS['ultrasonic/trigger'],config.PINS['ultrasonic/echo'])
+
+value = line.read()
 
 def updateSensor():
               global value
 
               print('start of thread')
               while running: # global variable to stop loop
-                            value = lineSensor.readSensor()
+                            value = line.read()
                             time.sleep(1)
               print('stop of thread')
               

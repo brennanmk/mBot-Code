@@ -1,10 +1,10 @@
 import RPi.GPIO as GPIO
 
-in1=6 #Input pin for the yellow wire on the linefinder is GPIO pin 6
+class LineSensor:
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(in1, GPIO.IN)
-
-def readSensor():
-    return GPIO.input(in1)
-
+    def __init__(self,pin):
+        self.pin = pin
+        GPIO.setup(self.pin, GPIO.IN)
+    
+    def read(self):
+        return GPIO.input(self.pin)
