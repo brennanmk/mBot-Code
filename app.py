@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-import motorControl
-import lineSensor
+import mBot.motorControl as motorControl
+import mBot.lineSensor as lineSensor
 import threading
 import time
 
