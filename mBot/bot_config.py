@@ -1,5 +1,4 @@
 import configparser
-import motor
 
 #NOTE: PINS ARE STORED IN BCM MODE
 PINS = {}

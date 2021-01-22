@@ -1,31 +1,20 @@
 from flask import Flask, render_template, request, jsonify
-import RPi.GPIO as GPIO
-import mBot.motorControl as motorControl
-import mBot.lineSensor as lineSensor
-import mBot.distanceSensor as distanceSensor
-import mBot.bot_config as config
+import motorControl
+import lineSensor
 import threading
 import time
 
-# Setup flask app
+
 app = Flask(__name__)
-GPIO.setmode(GPIO.BCM)
 running = True
-
-# Setup bot components
-line = lineSensor.LineSensor(config.PINS['line/sense'])
-distance = distanceSensor.DistanceSensor(config.PINS['ultrasonic/trigger'],config.PINS['ultrasonic/echo'])
-
-lineValue = line.read()
-distValue = distance.read_cm()
+value = lineSensor.readSensor()
 
 def updateSensor():
-              global lineValue,distValue
+              global value
 
               print('start of thread')
               while running: # global variable to stop loop
-                            lineValue = line.read()
-                            distValue = distance.read_cm()
+                            value = lineSensor.readSensor()
                             time.sleep(1)
               print('stop of thread')
               
@@ -60,18 +49,19 @@ def index():
               return render_template('index.html')
 
 @app.route("/editor",methods=['GET','POST'])
-def editor():
-    if request.method == 'GET':
-        return render_template('editor.html')
-    else:
-        print(request.form.get("code"))
+def editor():    if request.method == 'POST':
+		code = request.form.get("code")
+		print(code)
+		exec(code)
+	return render_template('editor.html')
 
 
 @app.route('/update', methods=['POST'])
 def update():
               return jsonify({
-                            'title': 'Sensor Values',
-                            'lineValue': lineValue,'distValue':distValue
+                            'title': 'Line Finder',
+                            'value': value
                             })
 if __name__ == '__main__':
               app.run()
+                  
