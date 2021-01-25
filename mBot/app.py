@@ -53,7 +53,7 @@ def index():
                                           motorControl.motorControl(4)
                                           print("Motor Right")
                             else:
-                                          return render_template('index.html')
+                                          return render_template('index.html',pinouts=config.PINS.keys())
 
               elif request.method == 'GET':
                             print("No Post Back Call")
