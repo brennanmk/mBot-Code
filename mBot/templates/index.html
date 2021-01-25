@@ -74,6 +74,19 @@
 
     <table>
 
+		<tr><td>
+			<!-- Pin remapper -->
+			<select name="pinouts" id="pinouts">
+				{% for pin in pins %}
+					<option value="{{ pin }}">{{ pin }}</option>
+				{% endfor %}
+			</select>
+			<span><i class="fa fa-arrow-right"></i></span>
+			<input type="number" id="pin_num" name="pin_num" min="1" max="27">
+			<button class="button item1" value="Remap" name="Remap">Remap</button>
+
+		</td></tr>
+
       <tr>
 	<td>Line Finder</th>
 	<td id="linesen"></td>
