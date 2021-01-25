@@ -1,8 +1,6 @@
 import http.client
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-import sys
-sys.path.append('..')
 import mBot.interfaces.bot_config as config
 import mBot.interfaces.setMotorPower as RobotMotorPower
 import mBot.interfaces.lineSensor as LineSensor
