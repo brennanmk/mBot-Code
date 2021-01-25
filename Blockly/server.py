@@ -3,7 +3,7 @@ from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
 import sys
 sys.path.append('..')
-import mBot.bot_config as config
+import mBot.interfaces.bot_config as config
 import mBot.interfaces.setMotorPower as RobotMotorPower
 import mBot.interfaces.lineSensor as LineSensor
 import mBot.interfaces.distanceSensor as DistanceSensor
