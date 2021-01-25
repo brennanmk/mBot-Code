@@ -1,7 +1,10 @@
 import http.client
 from xmlrpc.server import SimpleXMLRPCServer
-import robot.setMotorPower as RobotMotorPower
 from xmlrpc.server import SimpleXMLRPCRequestHandler
+import sys
+sys.path.append('..')
+import mBot.interfaces.setMotorPower as RobotMotorPower 
+
 
 def registerRobotXmlRpcMethods(server):
     

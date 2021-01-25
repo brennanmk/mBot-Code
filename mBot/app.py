@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import RPi.GPIO as GPIO
-import interfaces.motorControl as motorControl
+import interfaces.setMotorPower as motorControl
 import interfaces.lineSensor as lineSensor
 import interfaces.distanceSensor as distanceSensor
 import bot_config as config
@@ -10,6 +10,8 @@ import time
 # Setup flask app
 app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
+motorControl.init()
+
 running = True
 
 # Setup bot components
@@ -38,19 +40,24 @@ def indexRefresh(device=None, action=None):
 def index():
               if request.method == 'POST':
                             if request.form.get('Forward') == 'Forward':
-                                          motorControl.motorControl(1)
+                                          motorControl.set("LEFT",100)
+                                          motorControl.set("RIGHT",100)
                                           print("Motor Forward")
                             elif  request.form.get('Stop') == 'Stop':
-                                          motorControl.motorControl(0)
+                                          motorControl.set("LEFT",0)
+                                          motorControl.set("RIGHT",0)
                                           print("Motor Stop")
                             elif request.form.get('Backwards') == 'Backwards':
-                                          motorControl.motorControl(2)
+                                          motorControl.set("LEFT",-100)
+                                          motorControl.set("RIGHT",-100)
                                           print("Motor Back")
                             elif request.form.get("Left")==("Left"):
-                                          motorControl.motorControl(3)
+                                          motorControl.set("LEFT",-100)
+                                          motorControl.set("RIGHT",100)
                                           print("Motor Left")
                             elif request.form.get("Right")==("Right"):
-                                          motorControl.motorControl(4)
+                                          motorControl.set("LEFT",100)
+                                          motorControl.set("RIGHT",-100)
                                           print("Motor Right")
                             else:
                                           return render_template('index.html')
