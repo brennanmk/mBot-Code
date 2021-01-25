@@ -28,7 +28,7 @@ def load_pin_config():
     pin_cfg = configparser.ConfigParser()
 
     # Look for file
-    if not pin_cfg.read('mBot/pins.ini'):
+    if not pin_cfg.read('pins.ini'):
         print('Bot config file missing, generating from defaults')
         # Copy defaults
         for section in DEFAULT_PINS:
@@ -36,7 +36,7 @@ def load_pin_config():
             for item in DEFAULT_PINS[section]:
                 pin_cfg[section][item] = str(DEFAULT_PINS[section][item])
         # Write to file
-        with open('mBot/pins.ini','w') as file:
+        with open('pins.ini','w') as file:
             pin_cfg.write(file)
 
     
