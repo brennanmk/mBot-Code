@@ -24,6 +24,7 @@ def init():
     global BACKWARD_POWER_LEFT
     
     # Motor Right
+    GPIO.setmode(GPIO.BCM)
     GPIO.setup(RIGHT_MOTOR_FORWARD_GPIO_PIN, GPIO.OUT)
     GPIO.setup(RIGHT_MOTOR_BACKWARD_GPIO_PIN, GPIO.OUT)
     GPIO.setup(en1, GPIO.OUT)
@@ -71,3 +72,4 @@ def set(motor, power):
             BACKWARD_POWER_RIGHT.ChangeDutyCycle(-power)
 
     return 0;
+
