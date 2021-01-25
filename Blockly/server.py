@@ -3,8 +3,10 @@ from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
 import sys
 sys.path.append('..')
-import mBot.interfaces.setMotorPower as RobotMotorPower 
-
+import mBot.bot_config as config
+import mBot.interfaces.setMotorPower as RobotMotorPower
+import mBot.interfaces.lineSensor as LineSensor
+import mBot.interfaces.distanceSensor as DistanceSensor
 
 def registerRobotXmlRpcMethods(server):
     
@@ -13,7 +15,13 @@ def registerRobotXmlRpcMethods(server):
     
     # Register the motor power command function.
     RobotMotorPower.init()
+    LineSensor.init(config.PINS['line/sense'])
+    DistanceSensor.init(config.PINS['ultrasonic/trigger'],config.PINS['ultrasonic/echo'])
+
     server.register_function(RobotMotorPower.set,'setRobotMotorPower')
+    server.register_function(LineSensor.read,'readLineSensorValue')
+    server.register_function(DistanceSensor.read_cm,'readDistanceSensor_cm')
+    server.register_function(DistanceSensor.read_in,'readDistanceSensor_in')
 
 
     

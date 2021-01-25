@@ -13,6 +13,29 @@ Blockly.Blocks['robot_motor_power'] = {
 	}
 };
 
+Blockly.Blocks['robot_sensor_line'] = {
+init: function() {
+	this.appendDummyInput()
+		.appendField("Line sensor detects line");
+	this.setOutput(true, "Boolean");
+	this.setColour(230);
+this.setTooltip("");
+this.setHelpUrl("");
+}
+};
+
+Blockly.Blocks['robot_sensor_distance'] = {
+init: function() {
+	this.appendDummyInput()
+		.appendField("Ultrasonic Sensor Distance in ")
+		.appendField(new Blockly.FieldDropdown([["in","IN"], ["cm","CM"]]), "UNITS");
+	this.setOutput(true, "Number");
+	this.setColour(230);
+this.setTooltip("");
+this.setHelpUrl("");
+}
+};
+
 Blockly.Blocks['control_key_down'] = {
 	init : function() {
 		this.setHelpUrl('http://www.example.com/');

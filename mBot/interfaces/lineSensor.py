@@ -1,10 +1,8 @@
 import RPi.GPIO as GPIO
 
-class LineSensor:
+sensor_pin = -1
+def init(pin):
+    sensor_pin = pin
 
-    def __init__(self,pin):
-        self.pin = pin
-        GPIO.setup(self.pin, GPIO.IN)
-    
-    def read(self):
-        return GPIO.input(self.pin)
+def read():
+    return GPIO.input(self.pin)

@@ -8,10 +8,10 @@ LEFT_MOTOR_BACKWARD_GPIO_PIN = 27
 en1 = 25
 en2=17
 # Global variables
-FORWARD_POWER_RIGHT = None;
-BACKWARD_POWER_RIGHT = None;
-FORWARD_POWER_LEFT = None;
-BACKWARD_POWER_LEFT = None;
+FORWARD_POWER_RIGHT = None
+BACKWARD_POWER_RIGHT = None
+FORWARD_POWER_LEFT = None
+BACKWARD_POWER_LEFT = None
 
 
 def init():
@@ -71,5 +71,5 @@ def set(motor, power):
             FORWARD_POWER_RIGHT.ChangeDutyCycle(0)
             BACKWARD_POWER_RIGHT.ChangeDutyCycle(-power)
 
-    return 0;
+    return 0
 

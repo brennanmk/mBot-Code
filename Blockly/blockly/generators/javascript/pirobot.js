@@ -19,6 +19,18 @@ Blockly.JavaScript['robot_motor_power'] = function(block) {
 	return code;
 };
 
+// Sensor blocks
+Blockly.JavaScript['robot_sensor_line'] = function(block) {
+	var code = '(readLineSensorValue() == 1)';
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript['robot_sensor_distance'] = function(block) {
+	var dropdown_name = block.getFieldValue('UNITS');
+	var code = '(readDistanceSensor_'+dropdown_name+'())';
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.JavaScript['control_key_down'] = function(block) {
     // The inputs ...
 	var statements_statements = Blockly.JavaScript.statementToCode(block, 'STATEMENTS');

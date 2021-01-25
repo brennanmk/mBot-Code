@@ -15,19 +15,19 @@ motorControl.init()
 running = True
 
 # Setup bot components
-line = lineSensor.LineSensor(config.PINS['line/sense'])
-lineValue = line.read()
+lineSensor.init(config.PINS['line/sense'])
+lineValue = lineSensor.read()
 
-distance = distanceSensor.DistanceSensor(config.PINS['ultrasonic/trigger'],config.PINS['ultrasonic/echo'])
-distValue = distance.read_cm()
+distanceSensor.init(config.PINS['ultrasonic/trigger'],config.PINS['ultrasonic/echo'])
+distValue = distanceSensor.read_cm()
 
 def updateSensor():
               global lineValue,distValue
 
               print('start of thread')
               while running: # global variable to stop loop
-                            lineValue = line.read()
-                            distValue = distance.read_cm()
+                            lineValue = lineSensor.read()
+                            distValue = distanceSensor.read_cm()
                             time.sleep(1)
               print('stop of thread')
               
