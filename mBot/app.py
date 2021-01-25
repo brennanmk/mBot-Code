@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import interfaces.setMotorPower as motorControl
 import interfaces.lineSensor as lineSensor
 import interfaces.distanceSensor as distanceSensor
-import bot_config as config
+import interfaces.bot_config as config
 import threading
 import time
 
