@@ -12,14 +12,14 @@ def init(trig,echo):
     GPIO.output(trig,0)
 
 def read_cm():
-    GPIO.output(trig,1)
+    GPIO.output(pin_trigger,1)
     time.sleep(0.0001)
-    GPIO.output(trig,0)
+    GPIO.output(pin_trigger,0)
 
     # Wait for pulse
-    while GPIO.input(echo) == 0:
+    while GPIO.input(pin_echo) == 0:
         pulse_start = time.time()
-    while GPIO.input(echo) == 1:
+    while GPIO.input(pin_echo) == 1:
         pulse_end = time.time()
 
     # Returns distance in CM

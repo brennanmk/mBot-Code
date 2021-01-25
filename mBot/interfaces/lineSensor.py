@@ -5,4 +5,4 @@ def init(pin):
     sensor_pin = pin
 
 def read():
-    return GPIO.input(self.pin)
+    return GPIO.input(sensor_pin)
