@@ -34,7 +34,7 @@ def updateSensor():
 @app.route("/")
 def indexRefresh(device=None, action=None):
               threading.Thread(target=updateSensor).start()
-              return render_template('index.html')
+              return render_template('index.html',pinouts=config.PINS.keys())
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -60,11 +60,11 @@ def index():
                                           motorControl.set("RIGHT",-100)
                                           print("Motor Right")
                             else:
-                                          return render_template('index.html')
+                                          return render_template('index.html',pinouts=config.PINS.keys())
 
               elif request.method == 'GET':
                             print("No Post Back Call")
-              return render_template('index.html')
+              return render_template('index.html',pinouts=config.PINS.keys())
 
 
 @app.route('/update', methods=['POST'])
