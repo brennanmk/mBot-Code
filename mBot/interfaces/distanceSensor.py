@@ -5,6 +5,9 @@ pin_trigger = -1
 pin_echo = -1
 
 def init(trig,echo):
+    global pin_trigger
+    global pin_echo
+
     pin_trigger = trig
     pin_echo = echo
     GPIO.setup(echo, GPIO.IN)
