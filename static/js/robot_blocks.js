@@ -30,7 +30,8 @@ Blockly.Blocks['robot_get_line'] = {
           .appendField(new Blockly.FieldDropdown([["left","LEFT"], ["right","RIGHT"]]), "MOTOR")
           .appendField("motor power to");
       this.setInputsInline(true);
-      this.setOutput(true, "Number");
+      this.setPreviousStatement(true,null);
+	this.setNextStatement(true,null);
       this.setColour(330);
    this.setTooltip("");
    this.setHelpUrl("");
@@ -50,6 +51,6 @@ Blockly.Python['robot_get_line'] = function(block) {
   Blockly.Python['robot_set_motor'] = function(block) {
     const dropdown_motor = block.getFieldValue('MOTOR');
     let value_power = Blockly.Python.valueToCode(block, 'POWER', Blockly.Python.ORDER_ATOMIC);
-    const code = 'robot.setMotorPower(' + '\"'+ dropdown_motor +'\",' + value_power + ')';
-    return [code, Blockly.Python.ORDER_NONE];
+    const code = 'robot.setMotorPower(' + '\"'+ dropdown_motor +'\",' + value_power + ')\n';
+    return code;
   };

@@ -21,8 +21,10 @@ def init():
 
 
 def setupMotor(name):
+	name = 'motor_'+name
 	GPIO.setup(config.PINS[name+'/dira'],GPIO.OUT)
 	GPIO.setup(config.PINS[name+'/dirb'],GPIO.OUT)
+	GPIO.setup(config.PINS[name+'/pwm'],GPIO.OUT)
 	motor_pwm[name] = GPIO.PWM(config.PINS[name+'/pwm'],1000)
 	# Set defaults
 	GPIO.output(config.PINS[name+'/dira'],0)
@@ -59,7 +61,7 @@ def setMotorPower(motor,power):
 	if motor not in MOTOR_NAMES:
 		return
 	
-	name = motor.lower()
+	name = 'motor_'+motor.lower()
 	GPIO.output(config.PINS[name+'/dira'],power>0)
 	GPIO.output(config.PINS[name+'/dirb'],power<0)
 	motor_pwm[name].ChangeDutyCycle(abs(power))
@@ -67,6 +69,7 @@ def setMotorPower(motor,power):
 # Cleanup robot
 def cleanup():
 	for name in MOTOR_NAMES:
-		setMotorPower(name.lower(),0)
-		motor_pwm[name.lower()].stop()
+		name = 'motor_'+name.lower()
+		setMotorPower(name,0)
+		motor_pwm[name].stop()
 	GPIO.cleanup()

@@ -1,3 +1,4 @@
 import robot.robot as robot
 robot.init()
-print(robot.getLineSensor())
+robot.setMotorPower("RIGHT",100)
+robot.setMotorPower("LEFT",100)
