@@ -21,18 +21,54 @@
         <div id='interface'>
             <div id="blocklyDiv"></div>
             <!-- Toolbox Definition XML begins here -->
-            <xml id="toolbox">
-            <category name="Control">
-                <block type="controls_if"></block>
-                <block type="controls_whileUntil"></block>
-                <block type="controls_for">
-            </category>
-            <category name="Logic">
-                <block type="logic_compare"></block>
-                <block type="logic_operation"></block>
-                <block type="logic_boolean"></block>
-            </category>      
-            </xml>
+            <xml id="toolbox" style="display: none">
+                <category name="Logic">
+                  <block type="controls_if"></block>
+                  <block type="logic_compare"></block>
+                  <block type="logic_operation"></block>
+                  <block type="logic_negate"></block>
+                  <block type="logic_boolean"></block>
+                </category>
+                <category name="Loops">
+                  <block type="controls_repeat_ext">
+                    <value name="TIMES">
+                      <block type="math_number">
+                        <field name="NUM">10</field>
+                      </block>
+                    </value>
+                  </block>
+                  <block type="controls_whileUntil"></block>
+                </category>
+                <category name="Math">
+                  <block type="math_number"></block>
+                  <block type="math_arithmetic"></block>
+                  <block type="math_single"></block>
+                </category>
+                <category name="Text">
+                  <block type="text"></block>
+                  <block type="text_length"></block>
+                  <block type="text_print"></block>
+                  <block type="text_prompt_ext">
+                    <value name="TEXT">
+                      <block type="text"></block>
+                    </value>
+                  </block>
+                </category>
+                <category name="Variables" custom="VARIABLE"></category>
+                <category name="Functions" custom="PROCEDURE"></category>
+                <category name="Robot">
+                    <block type="robot_get_line"></block>
+                    <block type="robot_get_distance"></block>
+                    <block type="robot_set_motor">
+                        <value name="POWER">
+                            <block type="math_number">
+                              <field name="NUM">0</field>
+                            </block>
+                          </value>
+                    </block>
+                </category>
+                <category name="Robot (Advanced)"></category>
+              </xml>
 
             <pre id="code-preview">              
             </pre>
@@ -44,6 +80,7 @@
         <script src="/static/js/blockly/python_compressed.js"></script>
         <script src="/static/js/blockly/msg/js/en.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/static/js/robot_blocks.js"></script>
         <script src="/static/js/index.js"></script>
 
     </body>

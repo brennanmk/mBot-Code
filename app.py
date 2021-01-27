@@ -56,6 +56,10 @@ def execute():
 
 # Create a python file to execute
 def create_python_file(code):
+
+    # Append robot code
+    code = code + "import robot.robot as robot\nrobot.init()"
+
     file_path = os.path.join(os.getcwd(), 'temp.py')
     try:
         python_file = codecs.open(file_path, 'wb+', encoding='utf-8')
@@ -80,11 +84,11 @@ def run_python_file(location):
     print('CLI command: %s' % ' '.join(cli_command))
 
     # Run new process
-    current_process = subprocess.Popen(cli_command, stdout=subprocess.PIPE)
+    current_process = subprocess.Popen(cli_command, stdout=subprocess.PIPE, text=True)
     # Feed output to console
-    while current_process.poll():
-        print(current_process.stdout.read())
+    output = current_process.communicate()
     current_process.wait()
+    print(output[0])
 
     current_process = None
 
