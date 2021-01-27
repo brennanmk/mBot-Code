@@ -67,7 +67,7 @@ Blockly.Python['robot_get_line'] = function(block) {
     const dropdown_motor = block.getFieldValue('MOTOR');
     let value_power = Blockly.Python.valueToCode(block, 'POWER', Blockly.Python.ORDER_ATOMIC);
     const code = 'robot.setMotorPower(' + '\"'+ dropdown_motor +'\",' + value_power + ')\n';
-    return [code, Blockly.Python.ORDER_NONE];
+    return code;
   };
 
   Blockly.Python['time_sleep'] = function(block) {

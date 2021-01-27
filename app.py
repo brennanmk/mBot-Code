@@ -57,7 +57,7 @@ def execute():
 def create_python_file(code):
 
     # Append robot code
-    code = "import robot.robot as robot\nrobot.init()\n" + code
+    code = "import robot.robot as robot\nrobot.init()\nimport time\n" + code + '\nrobot.cleanup()'
 
     file_path = os.path.join(os.getcwd(), 'temp.py')
     try:
