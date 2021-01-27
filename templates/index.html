@@ -53,9 +53,16 @@
                       <block type="text"></block>
                     </value>
                   </block>
-                </category>
-                <category name="Variables" custom="VARIABLE"></category>
-                <category name="Functions" custom="PROCEDURE"></category>
+				</category>
+				<category name="Time">
+					<block type="time_sleep">
+						<value name="TIME">
+                            <block type="math_number">
+                              <field name="NUM">1</field>
+                            </block>
+                          </value>
+					</block>
+				</category>
                 <category name="Robot">
                     <block type="robot_get_line"></block>
                     <block type="robot_get_distance"></block>
@@ -67,7 +74,9 @@
                           </value>
                     </block>
                 </category>
-                <category name="Robot (Advanced)"></category>
+				<category name="Robot (Advanced)"></category>
+				<category name="Variables" custom="VARIABLE"></category>
+                <category name="Functions" custom="PROCEDURE"></category>
               </xml>
 
             <pre id="code-preview">              
