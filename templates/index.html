@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Robot Control Panel</title>
+
+        <link rel='stylesheet' href='/static/css/index.css'>
+    </head>
+
+    <header>
+        <button id='run-code'>Run Code</button>
+        <button id='stop-code' disabled>Stop</button>
+        <span id='status'>Idle</span>
+    </header>
+
+    <body>
+
+        <div id='interface'>
+            <div id="blocklyDiv"></div>
+            <!-- Toolbox Definition XML begins here -->
+            <xml id="toolbox">
+            <category name="Control">
+                <block type="controls_if"></block>
+                <block type="controls_whileUntil"></block>
+                <block type="controls_for">
+            </category>
+            <category name="Logic">
+                <block type="logic_compare"></block>
+                <block type="logic_operation"></block>
+                <block type="logic_boolean"></block>
+            </category>      
+            </xml>
+
+            <pre id="code-preview">              
+            </pre>
+        </div>
+
+        <!-- Load main blockly scripts -->
+        <script src="/static/js/blockly/blockly_compressed.js"></script>
+        <script src="/static/js/blockly/blocks_compressed.js"></script>
+        <script src="/static/js/blockly/python_compressed.js"></script>
+        <script src="/static/js/blockly/msg/js/en.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/static/js/index.js"></script>
+
+    </body>
+</html>
