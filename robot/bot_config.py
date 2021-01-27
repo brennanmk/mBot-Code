@@ -12,7 +12,7 @@ DEFAULT_PINS = {
         'dirB':6
     },
     'ultrasonic':{
-        'trigger':23,
+        'trig':23,
         'echo':24
     },
     'line':{

@@ -58,7 +58,7 @@ def execute():
 def create_python_file(code):
 
     # Append robot code
-    code = code + "import robot.robot as robot\nrobot.init()"
+    code = "import robot.robot as robot\nrobot.init()\n" + code
 
     file_path = os.path.join(os.getcwd(), 'temp.py')
     try:
@@ -80,7 +80,7 @@ def run_python_file(location):
     global current_process
 
     # Generate command
-    cli_command = ['python', location]
+    cli_command = ['python3', location]
     print('CLI command: %s' % ' '.join(cli_command))
 
     # Run new process
