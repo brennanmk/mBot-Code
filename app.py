@@ -53,7 +53,6 @@ def execute():
         else:
             return 'IDLE'
 
-
 # Create a python file to execute
 def create_python_file(code):
 

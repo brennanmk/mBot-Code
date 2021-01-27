@@ -5,6 +5,8 @@ import robot.bot_config as config
 
 MOTOR_NAMES = ('LEFT','RIGHT')
 
+motor_pwm = {}
+
 def init():
 	GPIO.setmode(GPIO.BCM)
 	# Setup line sensor
@@ -13,6 +15,20 @@ def init():
 	GPIO.setup(config.PINS['ultrasonic/trig'],GPIO.OUT)
 	GPIO.setup(config.PINS['ultrasonic/echo'],GPIO.IN)
 	GPIO.output(config.PINS['ultrasonic/trig'],0)
+    # Setup motors
+	for name in MOTOR_NAMES:
+		setupMotor(name.lower())
+
+
+def setupMotor(name):
+	GPIO.setup(config.PINS[name+'/dira'],GPIO.OUT)
+	GPIO.setup(config.PINS[name+'/dirb'],GPIO.OUT)
+	motor_pwm[name] = GPIO.PWM(config.PINS[name+'/pwm'],1000)
+	# Set defaults
+	GPIO.output(config.PINS[name+'/dira'],0)
+	GPIO.output(config.PINS[name+'/dirb'],0)
+	motor_pwm[name].start(0)
+
 
 def getLineSensor():
 	return GPIO.input(config.PINS['line/sense'])
@@ -41,4 +57,16 @@ def setMotorPower(motor,power):
 	# Validate inputs
 	power = min(100,max(power,-100))
 	if motor not in MOTOR_NAMES:
-        	return
+		return
+	
+	name = motor.lower()
+	GPIO.output(config.PINS[name+'/dira'],power>0)
+	GPIO.output(config.PINS[name+'/dirb'],power<0)
+	motor_pwm[name].ChangeDutyCycle(abs(power))
+
+# Cleanup robot
+def cleanup():
+	for name in MOTOR_NAMES:
+		setMotorPower(name.lower(),0)
+		motor_pwm[name.lower()].stop()
+	GPIO.cleanup()
