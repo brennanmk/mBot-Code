@@ -1,6 +1,7 @@
 # This file contains all the critical robot handling code
 import RPi.GPIO as GPIO
 import time
+import robot.bot_config as config
 
 MOTOR_NAMES = ('LEFT','RIGHT')
 
