@@ -1,0 +1,67 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel='stylesheet' href='/static/css/index.css'>
+	<link rel='stylesheet' href='/static/css/highlightjs/default.css'>
+</head>
+
+
+<body style="background-color:#1e2124;">
+	
+	<div class="navbar">
+		<a href="/">Controller</a>
+		<a href="/blockly">Blockly</a>
+	</div>
+	<form method="post" action="/">
+		<div class="grid-container">
+			<button class="button item1" value="Forward" name="Forward"><i class="fa fa-arrow-up"></i></button>
+			<button class="button item2" value="Left" name="Left"><i class="fa fa-arrow-left"></i></button>
+			<button class="button item3" value="Stop" name="Stop"><i class="fa fa-stop"></i></button>
+			<button class="button item4" value="Right" name="Right"><i class="fa fa-arrow-right"></i></button>
+			<button class="button item5" value="Backwards" name="Backwards"><i class="fa fa-arrow-down"></i></button>
+		</div>
+	</form>
+
+	<table>
+
+		</td>
+		</tr>
+
+		<tr>
+			<td>Line Finder</th>
+			<td id="linesen"></td>
+		</tr>
+		<tr>
+			<td>Distance Sensor</td>
+			<td><span id="distsen">0</span>cm</td>
+		</tr>
+
+	</table>
+
+
+	<!-- Load main scripts -->
+	<script src="/static/js/lib/jquery.min.js"></script>
+	<!-- Sensor update script -->
+	<script>
+		setInterval(function () {
+			$.ajax({
+				url: '/update',
+				type: 'POST',
+				success: function (response) {
+					console.log(response);
+					$("#linesen").html(response["lineValue"]);
+					$("#distsen").html(response["distValue"]);
+
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			})
+		}, 1000);
+	</script>
+
+</body>
+
+</html>
