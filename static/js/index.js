@@ -19,7 +19,8 @@ const workspace = Blockly.inject(blocklyDiv,{
 // Setup realtime code preview
 function blocklyUpdateEvent(e) {
     const code = Blockly.Python.workspaceToCode(workspace);
-    codePreviewDiv.textContent = code;
+	codePreviewDiv.textContent = code;
+	hljs.highlightBlock(codePreviewDiv);
 }
 workspace.addChangeListener(blocklyUpdateEvent);
 
