@@ -62,9 +62,8 @@ def index():
             robot.setMotorPower("LEFT", 100)
             robot.setMotorPower("RIGHT", -100)
             print("Motor Right")
-    else:
-        return render_template('index.html')
 
+        return render_template('index.html')
 
 @app.route('/update', methods=['POST'])
 def update():
