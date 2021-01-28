@@ -66,15 +66,36 @@
                 <category name="Robot">
                     <block type="robot_get_line"></block>
                     <block type="robot_get_distance"></block>
-                    <block type="robot_set_motor">
+                    <block type="robot_drive">
+						<value name="DIRECTION">
+							FWD
+						</value>
+						<value name="DURATION">
+							<block type="math_number">
+								<field name="NUM">1</field>
+							  </block>
+						</value>
+					</block>
+					<block type="robot_turn">
+						<value name="DIRECTION">
+							RIGHT
+						</value>
+						<value name="DURATION">
+							<block type="math_number">
+								<field name="NUM">1</field>
+							  </block>
+						</value>
+					</block>
+                </category>
+				<category name="Robot (Advanced)">
+					<block type="robot_set_motor">
                         <value name="POWER">
                             <block type="math_number">
                               <field name="NUM">0</field>
                             </block>
                           </value>
                     </block>
-                </category>
-				<category name="Robot (Advanced)"></category>
+				</category>
 				<category name="Variables" custom="VARIABLE"></category>
                 <category name="Functions" custom="PROCEDURE"></category>
               </xml>
