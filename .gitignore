@@ -5,6 +5,8 @@ __pycache__/
 
 # Robot config files, to be edited locally
 mBot/pins.ini
+# RPi debugging
+RPi/
 
 # C extensions
 *.so

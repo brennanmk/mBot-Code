@@ -1,83 +1,129 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Robot Control Panel</title>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel='stylesheet' href='/static/css/index.css'>
+	<title>Robot Control Panel</title>
 
-        <style>
-      		.navbar {
-              position: absolute;
-              width: 100%;
-              top: 0;
-              left:0;
-              right:0;
-              overflow: hidden;
-              background-color: #333;
-            }
+	<link rel='stylesheet' href='/static/css/index.css'>
+</head>
 
-            .navbar a {
-              float: left;
-              font-size: 16px;
-              color: white;
-              text-align: center;
-              padding: 14px 16px;
-              text-decoration: none;
-            }
-
-            .navbar a:hover {
-              background-color: #36393e;
-            }
-
-        </style>    
-      </head>
-
-    <header>
-	<div class="navbar">
-  	   <a href="/">Controller</a>
-  	   <a href="/blockly">Blockly</a>
-           <a href="#", style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></button>
-	   <a href="#", style="float: right;", id='run-code'>Run <i class="fa fa-play-circle"></i></a>
+<body>
 
 
+	<header>
+		<div class="navbar">
+			<a href="/">Controller</a>
+			<a href="/blockly">Blockly</a>
+			<a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></button>
+				<a href="#" , style="float: right;" , id='run-code'>Run <i class="fa fa-play-circle"></i></a>
+		</div>
+	</header>
+
+
+	<span id='status'>Idle</span>
+
+	<div id='interface'>
+		<div id="blocklyDiv"></div>
+		<!-- Toolbox Definition XML begins here -->
+		<xml id="toolbox" style="display: none">
+			<category name="Logic">
+			  <block type="controls_if"></block>
+			  <block type="logic_compare"></block>
+			  <block type="logic_operation"></block>
+			  <block type="logic_negate"></block>
+			  <block type="logic_boolean"></block>
+			</category>
+			<category name="Loops">
+			  <block type="controls_repeat_ext">
+				<value name="TIMES">
+				  <block type="math_number">
+					<field name="NUM">10</field>
+				  </block>
+				</value>
+			  </block>
+			  <block type="controls_whileUntil"></block>
+			</category>
+			<category name="Math">
+			  <block type="math_number"></block>
+			  <block type="math_arithmetic"></block>
+			  <block type="math_single"></block>
+			</category>
+			<category name="Text">
+			  <block type="text"></block>
+			  <block type="text_length"></block>
+			  <block type="text_print"></block>
+			  <block type="text_prompt_ext">
+				<value name="TEXT">
+				  <block type="text"></block>
+				</value>
+			  </block>
+			</category>
+			<category name="Time">
+				<block type="time_sleep">
+					<value name="TIME">
+						<block type="math_number">
+						  <field name="NUM">1</field>
+						</block>
+					  </value>
+				</block>
+			</category>
+			<category name="Robot">
+				<block type="robot_get_line"></block>
+				<block type="robot_get_distance"></block>
+				<block type="robot_drive">
+					<value name="DIRECTION">
+						FWD
+					</value>
+					<value name="DURATION">
+						<block type="math_number">
+							<field name="NUM">1</field>
+						  </block>
+					</value>
+				</block>
+				<block type="robot_turn">
+					<value name="DIRECTION">
+						RIGHT
+					</value>
+					<value name="DURATION">
+						<block type="math_number">
+							<field name="NUM">1</field>
+						  </block>
+					</value>
+				</block>
+			</category>
+			<category name="Robot (Advanced)">
+				<block type="robot_set_motor">
+					<value name="POWER">
+						<block type="math_number">
+						  <field name="NUM">0</field>
+						</block>
+					  </value>
+				</block>
+			</category>
+			<category name="Variables" custom="VARIABLE"></category>
+			<category name="Functions" custom="PROCEDURE"></category>
+		  </xml>
+
+		  <pre id="code-preview" class="python">
+			</pre>
 	</div>
-    </header>
 
-    <body>
-        <span id='status'>Idle</span>
+	<!-- Load main blockly scripts -->
+	<script src="/static/js/blockly/blockly_compressed.js"></script>
+	<script src="/static/js/blockly/blocks_compressed.js"></script>
+	<script src="/static/js/blockly/python_compressed.js"></script>
+	<script src="/static/js/blockly/msg/js/en.js"></script>
+	<script src="/static/js/lib/jquery.min.js"></script>
+	<script src="/static/js/robot_blocks.js"></script>
+	<script src="/static/js/index.js"></script>'
 
-        <div id='interface', style="padding-top:25px;">
-            <div id="blocklyDiv"></div>
-            <!-- Toolbox Definition XML begins here -->
-            <xml id="toolbox">
-            <category name="Control">
-                <block type="controls_if"></block>
-                <block type="controls_whileUntil"></block>
-                <block type="controls_for">
-            </category>
-            <category name="Logic">
-                <block type="logic_compare"></block>
-                <block type="logic_operation"></block>
-                <block type="logic_boolean"></block>
-            </category>      
-            </xml>
+	<script src="/static/js/lib/highlight.pack.js"></script>
 
-            <pre id="code-preview">              
-            </pre>
-        </div>
+</body>
 
-        <!-- Load main blockly scripts -->
-        <script src="/static/js/blockly/blockly_compressed.js"></script>
-        <script src="/static/js/blockly/blocks_compressed.js"></script>
-        <script src="/static/js/blockly/python_compressed.js"></script>
-        <script src="/static/js/blockly/msg/js/en.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="/static/js/index.js"></script>
-
-    </body>
 </html>
