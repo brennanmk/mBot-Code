@@ -115,8 +115,8 @@ Blockly.Python['robot_get_line'] = function(block) {
 	const dropdown_direction = block.getFieldValue('DIRECTION');
 	const value_duration = Blockly.Python.valueToCode(block, 'DURATION', Blockly.Python.ORDER_ATOMIC);
 	const spd = (dropdown_direction == 'FWD' ? 100 : -100);
-	let code = 'robot.setMotorPower("left",' + spd + ')\n';
-	code += 'robot.setMotorPower("right",' + spd + ')\n';
+	let code = 'robot.setMotorPower("LEFT",' + spd + ')\n';
+	code += 'robot.setMotorPower("RIGHT",' + spd + ')\n';
 	code += 'time.sleep(' + value_duration + ')\n'
 	return code;
   };
@@ -125,8 +125,8 @@ Blockly.Python['robot_get_line'] = function(block) {
 	const dropdown_direction = block.getFieldValue('DIRECTION');
 	const value_duration = Blockly.Python.valueToCode(block, 'DURATION', Blockly.Python.ORDER_ATOMIC);
 	const spd = (dropdown_direction == 'RIGHT' ? 100 : -100);
-	let code = 'robot.setMotorPower("left",' + (-spd) + ')\n';
-	code += 'robot.setMotorPower("right",' + spd + ')\n';
+	let code = 'robot.setMotorPower("LEFT",' + (-spd) + ')\n';
+	code += 'robot.setMotorPower("RIGHT",' + spd + ')\n';
 	code += 'time.sleep(' + value_duration + ')\n'
 	return code;
   };
