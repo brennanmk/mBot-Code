@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Robot Control Panel</title>
+
+        <link rel='stylesheet' href='/static/css/index.css'>
+
+        <style>
+      		.navbar {
+              position: absolute;
+              width: 100%;
+              top: 0;
+              left:0;
+              right:0;
+              overflow: hidden;
+              background-color: #333;
+            }
+
+            .navbar a {
+              float: left;
+              font-size: 16px;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+            }
+
+            .navbar a:hover {
+              background-color: #36393e;
+            }
+
+        </style>    
+      </head>
+
+    <header>
+	<div class="navbar">
+  	   <a href="/">Controller</a>
+  	   <a href="/blockly">Blockly</a>
+           <a href="#", style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></button>
+	   <a href="#", style="float: right;", id='run-code'>Run <i class="fa fa-play-circle"></i></a>
+
+
+	</div>
+    </header>
+
+    <body>
+        <span id='status'>Idle</span>
+
+        <div id='interface', style="padding-top:25px;">
+            <div id="blocklyDiv"></div>
+            <!-- Toolbox Definition XML begins here -->
+            <xml id="toolbox">
+            <category name="Control">
+                <block type="controls_if"></block>
+                <block type="controls_whileUntil"></block>
+                <block type="controls_for">
+            </category>
+            <category name="Logic">
+                <block type="logic_compare"></block>
+                <block type="logic_operation"></block>
+                <block type="logic_boolean"></block>
+            </category>      
+            </xml>
+
+            <pre id="code-preview">              
+            </pre>
+        </div>
+
+        <!-- Load main blockly scripts -->
+        <script src="/static/js/blockly/blockly_compressed.js"></script>
+        <script src="/static/js/blockly/blocks_compressed.js"></script>
+        <script src="/static/js/blockly/python_compressed.js"></script>
+        <script src="/static/js/blockly/msg/js/en.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/static/js/index.js"></script>
+
+    </body>
+</html>

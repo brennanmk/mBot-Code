@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import codecs
+import RPi.GPIO as GPIO
 import subprocess
+import robot.robot as robot
+import robot.bot_config as config
+import threading
+import time
 
 # Setup flask app and web socket
 app = Flask(__name__)
@@ -10,10 +15,73 @@ app = Flask(__name__)
 current_process = None
 killed = False
 
-# Default html
+GPIO.setmode(GPIO.BCM)
+robot.init()
+
+running = True
+
+# Setup bot components
+lineValue = robot.getLineSensor()
+
+distValue = robot.getDistanceCM()
+
+def updateSensor():
+              global lineValue,distValue
+
+              print('start of thread')
+              while running: # global variable to stop loop
+                            lineValue = robot.getLineSensor()
+                            distValue = robot.getDistanceCM()
+                            time.sleep(1)
+              print('stop of thread')
+              
+@app.route("/")
+def indexRefresh(device=None, action=None):
+              threading.Thread(target=updateSensor).start()
+              return render_template('index.html')
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+              if request.method == 'POST':
+                            if request.form.get('Forward') == 'Forward':
+                                          robot.setMotorPower("LEFT",100)
+                                          robot.setMotorPower("RIGHT",100)
+                                          print("Motor Forward")
+                            elif  request.form.get('Stop') == 'Stop':
+                                          robot.setMotorPower("LEFT",0)
+                                          robot.setMotorPower("RIGHT",0)
+                                          print("Motor Stop")
+                            elif request.form.get('Backwards') == 'Backwards':
+                                          robot.setMotorPower("LEFT",-100)
+                                          robot.setMotorPower("RIGHT",-100)
+                                          print("Motor Back")
+                            elif request.form.get("Left")==("Left"):
+                                          robot.setMotorPower("LEFT",-100)
+                                          robot.setMotorPower("RIGHT",100)
+                                          print("Motor Left")
+                            elif request.form.get("Right")==("Right"):
+                                          robot.setMotorPower("LEFT",100)
+                                          robot.setMotorPower("RIGHT",-100)
+                                          print("Motor Right")
+                            else:
+                                          return render_template('index.html')
+
+              elif request.method == 'GET':
+                            print("No Post Back Call")
+              return render_template('index.html')
+
+
+@app.route('/update', methods=['POST'])
+def update():
+              return jsonify({
+                            'title': 'Sensor Values',
+                            'lineValue': lineValue,'distValue':distValue
+                            })
+
+# Default html
+@app.route("/blockly", methods=['GET', 'POST'])
+def blockly():
+    return render_template('blockly.html')
 
 # Execute code
 @app.route("/execute",methods=['POST'])
