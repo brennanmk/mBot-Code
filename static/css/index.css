@@ -48,7 +48,7 @@ body {
 	background-color: #333;
   }
 
-  .navbar a, span {
+  .navbar a, .navbar span {
 	float: left;
 	font-size: 16px;
 	color: white;
