@@ -180,15 +180,15 @@ Blockly.Python['robot_get_line'] = function(block) {
   };
   
   Blockly.Python['robot_gpio_output'] = function(block) {
-    var number_pin = block.getFieldValue('PIN');
-    var statements_value = Blockly.Python.statementToCode(block, 'VALUE');
+    const number_pin = block.getFieldValue('PIN');
+    const statements_value = Blockly.Python.valueToCode(block, 'VALUE',Blockly.Python.ORDER_ATOMIC);
     return 'GPIO.output('+number_pin+','+statements_value + ')';
   };
   
   Blockly.Python['robot_gpio_input'] = function(block) {
-    var number_pin = block.getFieldValue('PIN');
+    const number_pin = block.getFieldValue('PIN');
     // TODO: Assemble Python into code variable.
-    var code = 'GPIO.input('+number_pin+')';
+    const code = 'GPIO.input('+number_pin+')';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Python.ORDER_NONE];
   };
