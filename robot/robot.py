@@ -53,12 +53,12 @@ def getDistanceCM():
         pulse_start = time.time()
         if pulse_start - timeout_start > 1:
             print("ERROR: Ultrasonic sensor timed out")
-            return 0
+            return -1
     while GPIO.input(pin_echo) == 1:
         pulse_end = time.time()
         if pulse_end - timeout_start > 1:
             print("ERROR: Ultrasonic sensor timed out")
-            return 0
+            return -1
     # Returns distance in CM
     return round((pulse_end - pulse_start)*17150, 2)
 

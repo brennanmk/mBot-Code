@@ -52,7 +52,12 @@
 				success: function (response) {
 					console.log(response);
 					$("#linesen").html(response["lineValue"]);
-					$("#distsen").html(response["distValue"]);
+
+					if (response["distValue"] < 0) {
+						$("#distsen").html("Timeout");
+					}else{
+						$("#distsen").html(response["distValue"]);
+					}
 
 				},
 				error: function (error) {
