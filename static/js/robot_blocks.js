@@ -90,6 +90,48 @@ Blockly.Blocks['robot_get_line'] = {
 	}
   };
 
+  Blockly.Blocks['robot_set_led'] = {
+    init: function() {
+      this.appendValueInput("VALUE")
+          .setCheck("Boolean")
+          .appendField("Set LED state to");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(330);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.Blocks['robot_gpio_output'] = {
+    init: function() {
+      this.appendStatementInput("VALUE")
+          .setCheck("Boolean")
+          .appendField("Set GPIO pin")
+          .appendField(new Blockly.FieldNumber(1, 1, 27, 1), "PIN")
+          .appendField("to");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(330);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.Blocks['robot_gpio_input'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Get value of GPIO pin")
+          .appendField(new Blockly.FieldNumber(1, 1, 27, 1), "PIN");
+      this.setInputsInline(true);
+      this.setOutput(true, "Boolean");
+      this.setColour(330);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+
 // Define block functionality
 Blockly.Python['robot_get_line'] = function(block) {
     return ['robot.getLineSensor()', Blockly.Python.ORDER_NONE];
@@ -129,4 +171,23 @@ Blockly.Python['robot_get_line'] = function(block) {
 	code += 'robot.setMotorPower("RIGHT",' + spd + ')\n';
 	code += 'time.sleep(' + value_duration + ')\n'
 	return code;
+  };
+
+  Blockly.Python['robot_set_led'] = function(block) {
+    const value = Blockly.Python.valueToCode(block, 'VALUE', Blockly.Python.ORDER_ATOMIC);
+    return 'robot.setLed('+value+')\n';
+  };
+  
+  Blockly.Python['robot_gpio_output'] = function(block) {
+    var number_pin = block.getFieldValue('PIN');
+    var statements_value = Blockly.Python.statementToCode(block, 'VALUE');
+    return 'GPIO.output('+number_pin+','+(statements_value ? '1' : '0') + ')';
+  };
+  
+  Blockly.Python['robot_gpio_input'] = function(block) {
+    var number_pin = block.getFieldValue('PIN');
+    // TODO: Assemble Python into code variable.
+    var code = 'GPIO.input('+number_pin+')';
+    // TODO: Change ORDER_NONE to the correct strength.
+    return [code, Blockly.Python.ORDER_NONE];
   };

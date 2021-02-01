@@ -16,9 +16,11 @@ def init():
     GPIO.setup(config.PINS['ultrasonic/trig'], GPIO.OUT)
     GPIO.setup(config.PINS['ultrasonic/echo'], GPIO.IN)
     GPIO.output(config.PINS['ultrasonic/trig'], 0)
-# Setup motors
+    # Setup motors
     for name in MOTOR_NAMES:
         setupMotor(name.lower())
+    # Give the US sensor time to denoise
+    time.sleep(1)
 
 
 def setupMotor(name):
@@ -66,6 +68,8 @@ def getDistanceCM():
 def getDistanceIN():
     return round(getDistanceCM() * 0.3937008, 2)
 
+def setLed(state):
+    GPIO.output(config.PINS['misc/led'],1 if state else 0)
 
 def setMotorPower(motor, power):
     # Validate inputs
