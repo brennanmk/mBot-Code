@@ -182,7 +182,7 @@ Blockly.Python['robot_get_line'] = function(block) {
   Blockly.Python['robot_gpio_output'] = function(block) {
     var number_pin = block.getFieldValue('PIN');
     var statements_value = Blockly.Python.statementToCode(block, 'VALUE');
-    return 'GPIO.output('+number_pin+','+(statements_value ? '1' : '0') + ')';
+    return 'GPIO.output('+number_pin+','+statements_value + ')';
   };
   
   Blockly.Python['robot_gpio_input'] = function(block) {
