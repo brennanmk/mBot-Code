@@ -103,14 +103,15 @@ Blockly.Blocks['robot_get_line'] = {
    this.setHelpUrl("");
     }
   };
-  
+
   Blockly.Blocks['robot_gpio_output'] = {
     init: function() {
-      this.appendStatementInput("VALUE")
+      this.appendValueInput("VALUE")
           .setCheck("Boolean")
           .appendField("Set GPIO pin")
           .appendField(new Blockly.FieldNumber(1, 1, 27, 1), "PIN")
           .appendField("to");
+      this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(330);
