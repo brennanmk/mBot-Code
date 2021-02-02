@@ -114,6 +114,19 @@ def execute():
             return 'STOPPED'
         else:
             return 'IDLE'
+    
+    elif action == 'shutdown':
+        # Shut down the pi
+        robot.cleanup()
+        GPIO.cleanup()
+
+        # Kill current process if it's running
+        if current_process != None:
+            current_process.kill()
+            killed = True
+
+        subprocess.Popen(["/usr/bin/sudo","/sbin/sutdown","-r","now"])
+
 
 
 # Create a python file to execute
