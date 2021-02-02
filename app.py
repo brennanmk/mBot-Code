@@ -24,7 +24,7 @@ distValue = robot.getDistanceCM()
 
 # Thread used to update sensor values
 def updateSensor():
-    global lineValue, distValue
+    global lineValue, distValue, running
     print('start of thread')
     while running:  # global variable to stop loop
         lineValue = robot.getLineSensor()
@@ -83,6 +83,7 @@ def execute():
 
     global current_process
     global killed
+    global running
 
     action = request.form.get('action')
     if action == 'execute':
@@ -110,6 +111,7 @@ def execute():
         # Stop code execution
         if current_process != None:
             killed = True
+            running = False
             current_process.kill()
             return 'STOPPED'
         else:
@@ -118,14 +120,15 @@ def execute():
     elif action == 'shutdown':
         # Shut down the pi
         robot.cleanup()
-        GPIO.cleanup()
 
         # Kill current process if it's running
         if current_process != None:
             current_process.kill()
             killed = True
 
-        subprocess.Popen(["/usr/bin/sudo","/sbin/sutdown","-r","now"])
+        subprocess.call("sudo shutdown -h now")
+
+        return 'SHUTDOWN'
 
 
 

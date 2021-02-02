@@ -57,7 +57,7 @@ body {
 	text-decoration: none;
   }
 
-  .navbar a:hover {
+  .navbar a:hover, .navbar span:hover {
 	background-color: #36393e;
   }
 
