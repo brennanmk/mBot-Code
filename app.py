@@ -126,7 +126,7 @@ def execute():
             current_process.kill()
             killed = True
 
-        subprocess.call("sudo shutdown -h now")
+        subprocess.call("sudo shutdown -h now",shell=True)
 
         return 'SHUTDOWN'
 
