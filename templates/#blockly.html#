@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+q<!DOCTYPE html>
 <html>
 
 <head>
@@ -20,15 +20,17 @@
 		<div class="navbar">
 			<a href="/">Controller</a>
 			<a href="/blockly">Blockly</a>
-			<a href="#" id='shutdown'>Shut Down</a>
-			<a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></a>
+			<a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></button>
 				<a href="#" , style="float: right;" , id='run-code'>Run <i class="fa fa-play-circle"></i></a>
 				<span id='status' style="float:right;">Idle</span>
 		</div>
 	</header>
 
-	<div id='interface', style="padding-top:25px;">
-		<div id="blocklyDiv", style="padding-top:21px;"></div>
+
+	<span id='status'>Idle</span>
+
+	<div id='interface', style="padding-top:30px;">
+		<div id="blocklyDiv"></div>
 		<!-- Toolbox Definition XML begins here -->
 		<xml id="toolbox" style="display: none">
 			<category name="Logic">
@@ -95,7 +97,6 @@
 						  </block>
 					</value>
 				</block>
-				<block type="robot_set_led"></block>
 			</category>
 			<category name="Robot (Advanced)">
 				<block type="robot_set_motor">
@@ -105,8 +106,6 @@
 						</block>
 					  </value>
 				</block>
-				<block type="robot_gpio_output"></block>
-				<block type="robot_gpio_input"></block>
 			</category>
 			<category name="Variables" custom="VARIABLE"></category>
 			<category name="Functions" custom="PROCEDURE"></category>
@@ -124,8 +123,7 @@
 	<script src="/static/js/lib/jquery.min.js"></script>
 	<script src="/static/js/robot_blocks.js"></script>
 	<script src="/static/js/lib/highlight.pack.js"></script>
-	<script src="/static/js/index.js"></script>
-	<script src="/static/js/shutdownhelper.js"></script>
+	<script src="/static/js/index.js"></script>'
 
 </body>
 
