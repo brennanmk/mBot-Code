@@ -4,6 +4,14 @@ import robot
 import time
 import os
 
+# Used to blink the LED
+def blink(count):
+	for i in range(count):
+		robot.setLed(True)
+		time.sleep(0.25)
+		robot.setLed(False)
+		time.sleep(0.25)
+
 # Check for ip_info.txt file
 if os.path.isfile('/boot/ip_info.txt'):
 	# We're good
@@ -22,11 +30,3 @@ else:
 	# Shutdown
 	import subprocess
 	subprocess.call("sudo shutdown -h now",shell=True)
-
-# Used to blink the LED
-def blink(count):
-	for i in range(count):
-		robot.setLed(True)
-		time.sleep(0.25)
-		robot.setLed(False)
-		time.sleep(0.25)
