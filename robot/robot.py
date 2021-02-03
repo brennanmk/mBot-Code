@@ -18,7 +18,7 @@ def init():
     GPIO.setmode(GPIO.BCM)
     # Setup line sensor
     GPIO.setup(config.PINS['line/sense'], GPIO.IN)
-    GPIO.setup(config.PINS['misc/led'], GPIO.OUT)
+    # Setup ultrasonic sensor
     GPIO.setup(config.PINS['ultrasonic/trig'], GPIO.OUT)
     GPIO.setup(config.PINS['ultrasonic/echo'], GPIO.IN)
     GPIO.output(config.PINS['ultrasonic/trig'], 0)
