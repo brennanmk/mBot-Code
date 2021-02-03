@@ -1,7 +1,13 @@
 # This file contains all the critical robot handling code
 import RPi.GPIO as GPIO
 import time
-import robot.bot_config as config
+try:
+    import robot.bot_config as config
+except ImportError:
+    try:
+        import bot_config as config
+    except ImportError:
+        print("Cannot find config!")
 
 MOTOR_NAMES = ('LEFT', 'RIGHT')
 
