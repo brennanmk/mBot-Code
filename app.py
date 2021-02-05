@@ -77,6 +77,10 @@ def update():
 def blockly():
     return render_template('blockly.html')
 
+@app.route("/docs",methods=['GET'])
+def docs():
+    return render_template('docs.html')
+
 # Execute code
 @app.route("/execute", methods=['POST'])
 def execute():

@@ -61,6 +61,10 @@ body {
 	background-color: #36393e;
   }
 
+#shutdown:hover {
+    background-color: #c75757 !important;
+  }
+
   table, th, td{
   border-collapse: collapse;
   border: 1px solid #7289da;

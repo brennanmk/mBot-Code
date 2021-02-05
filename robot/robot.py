@@ -1,5 +1,9 @@
 # This file contains all the critical robot handling code
-import RPi.GPIO as GPIO
+ON_PI = True
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    ON_PI = False
 import time
 import robot.bot_config as config
 
@@ -9,18 +13,19 @@ motor_pwm = {}
 
 
 def init():
-    GPIO.setmode(GPIO.BCM)
-    # Setup line sensor
-    GPIO.setup(config.PINS['line/sense'], GPIO.IN)
-    # Setup ultrasonic sensor
-    GPIO.setup(config.PINS['ultrasonic/trig'], GPIO.OUT)
-    GPIO.setup(config.PINS['ultrasonic/echo'], GPIO.IN)
-    GPIO.output(config.PINS['ultrasonic/trig'], 0)
-    # Setup motors
-    for name in MOTOR_NAMES:
-        setupMotor(name.lower())
-    # Give the US sensor time to denoise
-    time.sleep(1)
+    if ON_PI:
+        GPIO.setmode(GPIO.BCM)
+        # Setup line sensor
+        GPIO.setup(config.PINS['line/sense'], GPIO.IN)
+        # Setup ultrasonic sensor
+        GPIO.setup(config.PINS['ultrasonic/trig'], GPIO.OUT)
+        GPIO.setup(config.PINS['ultrasonic/echo'], GPIO.IN)
+        GPIO.output(config.PINS['ultrasonic/trig'], 0)
+        # Setup motors
+        for name in MOTOR_NAMES:
+            setupMotor(name.lower())
+        # Give the US sensor time to denoise
+        time.sleep(1)
 
 
 def setupMotor(name):
@@ -36,33 +41,39 @@ def setupMotor(name):
 
 
 def getLineSensor():
-    return GPIO.input(config.PINS['line/sense'])
+    if ON_PI:
+        return GPIO.input(config.PINS['line/sense'])
+    else:
+        return 0
 
 
 def getDistanceCM():
 
-    pin_trigger = config.PINS['ultrasonic/trig']
-    pin_echo = config.PINS['ultrasonic/echo']
+    if ON_PI:
+        pin_trigger = config.PINS['ultrasonic/trig']
+        pin_echo = config.PINS['ultrasonic/echo']
 
-    GPIO.output(pin_trigger, 1)
-    time.sleep(0.0001)
-    GPIO.output(pin_trigger, 0)
+        GPIO.output(pin_trigger, 1)
+        time.sleep(0.0001)
+        GPIO.output(pin_trigger, 0)
 
-    timeout_start = time.time()
+        timeout_start = time.time()
 
-    # Wait for pulse
-    while GPIO.input(pin_echo) == 0:
-        pulse_start = time.time()
-        if pulse_start - timeout_start > 1:
-            print("ERROR: Ultrasonic sensor timed out")
-            return -1
-    while GPIO.input(pin_echo) == 1:
-        pulse_end = time.time()
-        if pulse_end - timeout_start > 1:
-            print("ERROR: Ultrasonic sensor timed out")
-            return -1
-    # Returns distance in CM
-    return round((pulse_end - pulse_start)*17150, 2)
+        # Wait for pulse
+        while GPIO.input(pin_echo) == 0:
+            pulse_start = time.time()
+            if pulse_start - timeout_start > 1:
+                print("ERROR: Ultrasonic sensor timed out")
+                return -1
+        while GPIO.input(pin_echo) == 1:
+            pulse_end = time.time()
+            if pulse_end - timeout_start > 1:
+                print("ERROR: Ultrasonic sensor timed out")
+                return -1
+        # Returns distance in CM
+        return round((pulse_end - pulse_start)*17150, 2)
+    else:
+        return -1
 
 
 def getDistanceIN():
