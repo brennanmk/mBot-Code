@@ -65,7 +65,7 @@ body {
     background-color: #c75757 !important;
   }
 
-  table, th, td{
+  table.sensors, .sensors th, .sensors td{
   border-collapse: collapse;
   border: 1px solid #7289da;
   font-size: 24px;
@@ -73,7 +73,7 @@ body {
   color: white;
   }
 
-  table{
+  table.sensors{
   width: 33%;
   text-align: center;
   position: absolute;

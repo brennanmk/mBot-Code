@@ -1,5 +1,21 @@
 # WitBot Reference
 
+## Blocks
+Block | Description
+- | -
+**Basic Blocks** |
+![Robot Drive Block](/static/img/blocks/robot_drive.png) | Move the robot forwards or backwards at max speed for a certain number of seconds.
+![Robot Turn Block](/static/img/blocks/robot_turn.png) | Turn the robot right or left in place at max speed for a certain number of seconds.
+![Robot Line Sensor Block](/static/img/blocks/robot_line.png) | Get the current value of the robot's line sensor - this will be either true or false.
+![Robot Distance Sensor Block](/static/img/blocks/robot_distance.png) | Get the distance from the robot's ultrasonic sensor to the nearest obstacle in the units specified (either inches or centimeters). The number will be negative if there is an error.
+![Robot LED Block](/static/img/blocks/robot_led.png) | Turn the built-in LED on or off on the robot. This is useful for debugging when something isn't working the way it's supposed to.
+**Advanced Blocks** |
+![Robot Motor Power Block](/static/img/blocks/robot_motor.png) | Set the power of an individual motor. This lets you control the speed of the motors more precisely than the drive/turn blocks. The power value needs to be between -100 and 100.
+![Robot GPIO Out Block](/static/img/blocks/robot_gpio_out.png) | Turns a GPIO pin on or off. These use BCM pin numbers, which you can read more about below.
+![Robot GPIO In Block](/static/img/blocks/robot_gpio_in.png) | Get the value of a GPIO pin, true or false. This uses BCM pin numbers, which you can read more about below.
+
+---
+
 ## Raspberry Pi Zero
 ### Pins
 The WitBot is powered by a Raspberry Pi Zero W, which uses a section of pins called 'GPIO' (**G**eneral **P**urpose **I**nput and **O**utput). 

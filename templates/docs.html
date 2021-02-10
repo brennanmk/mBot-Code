@@ -1,11 +1,12 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
 
-  <title>Robot Control Panel</title>
-  <link rel="stylesheet" href="/static/css/index.css">
+<head>
+	<meta charset="utf-8">
+
+	<title>Robot Control Panel</title>
+	<link rel="stylesheet" href="/static/css/index.css">
 
 </head>
 
@@ -20,8 +21,119 @@
 		</div>
 	</header>
 
+	<div style="padding-top:25px;">
+		<h1 id="witbot-reference">WitBot Reference</h1>
+		<h2 id="blocks">Blocks</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Block</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>Basic Blocks</strong></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_drive.png" alt="Robot Drive Block"></td>
+					<td>Move the robot forwards or backwards at max speed for a certain number of seconds.</td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_turn.png" alt="Robot Turn Block"></td>
+					<td>Turn the robot right or left in place at max speed for a certain number of seconds.</td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_line.png" alt="Robot Line Sensor Block"></td>
+					<td>Get the current value of the robot&#39;s line sensor - this will be either true or false.</td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_distance.png" alt="Robot Distance Sensor Block"></td>
+					<td>Get the distance from the robot&#39;s ultrasonic sensor to the nearest obstacle in the units
+						specified (either inches or centimeters). The number will be negative if there is an error.</td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_led.png" alt="Robot LED Block"></td>
+					<td>Turn the built-in LED on or off on the robot. This is useful for debugging when something isn&#39;t
+						working the way it&#39;s supposed to.</td>
+				</tr>
+				<tr>
+					<td><strong>Advanced Blocks</strong></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_motor.png" alt="Robot Motor Power Block"></td>
+					<td>Set the power of an individual motor. This lets you control the speed of the motors more precisely
+						than the drive/turn blocks. The power value needs to be between -100 and 100.</td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_gpio_out.png" alt="Robot GPIO Out Block"></td>
+					<td>Turns a GPIO pin on or off. These use BCM pin numbers, which you can read more about below.</td>
+				</tr>
+				<tr>
+					<td><img src="/static/img/blocks/robot_gpio_in.png" alt="Robot GPIO In Block"></td>
+					<td>Get the value of a GPIO pin, true or false. This uses BCM pin numbers, which you can read more about
+						below.</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<h2 id="raspberry-pi-zero">Raspberry Pi Zero</h2>
+		<h3 id="pins">Pins</h3>
+		<p>The WitBot is powered by a Raspberry Pi Zero W, which uses a section of pins called &#39;GPIO&#39;
+			(<strong>G</strong>eneral <strong>P</strong>urpose <strong>I</strong>nput and <strong>O</strong>utput). </p>
+		<p>Each of these pins has 2 numbers used to refer to it:</p>
+		<ul>
+			<li>A <strong>Board</strong> number, indicated on the chart below by the number in the circle. Every pin has one
+				of these. This numbering system is <em>not</em> used by the Blockly interface or pin definition file.</li>
+			<li>A <strong>BCM</strong> number, indicated by the rectangle next to the circle on the chart below. For
+				instance, a pin labeled <code>GPIO14</code> has BCM pin number 14. Unlike board pins, only pins which can be
+				used for GPIO have these - so, power pins are left out. The WitBot uses these to refer to pins.</li>
+		</ul>
+		<p><img src="/static/img/pinout.png" alt="Raspberry Pi Zero Pinout"></p>
+		<p><em>(Source: TODO find source of image)</em></p>
+		<p>If you want to edit the pins your robot uses, bear in mind the distinction between BCM and Board pins. The pin
+			definitions themselves are located in the <code>pins.ini</code> file, and can be edited with any plain old text
+			editor.
+			The default pins are:</p>
+		<pre><code><span class="hljs-section">[motor_right]</span>
+		<span class="hljs-attr">pwm</span> = <span class="hljs-number">12</span>
+		<span class="hljs-attr">dira</span> = <span class="hljs-number">24</span>
+		<span class="hljs-attr">dirb</span> = <span class="hljs-number">23</span>
+		<span class="hljs-section">
+		[motor_left]</span>
+		<span class="hljs-attr">pwm</span> = <span class="hljs-number">13</span>
+		<span class="hljs-attr">dira</span> = <span class="hljs-number">22</span>
+		<span class="hljs-attr">dirb</span> = <span class="hljs-number">27</span>
+		<span class="hljs-section">
+		[ultrasonic]</span>
+		<span class="hljs-attr">trig</span> = <span class="hljs-number">26</span>
+		<span class="hljs-attr">echo</span> = <span class="hljs-number">19</span>
+		<span class="hljs-section">
+		[line]</span>
+		<span class="hljs-attr">sense</span> = <span class="hljs-number">6</span>
+		<span class="hljs-section">
+		[misc]</span>
+		<span class="hljs-attr">led</span> = <span class="hljs-number">2</span>
+	</code></pre>
+		<h2 id="troubleshooting">Troubleshooting</h2>
+		<h3 id="ultrasonic-sensor">Ultrasonic sensor</h3>
+		<p>The ultrasonic sensor will usually be the easiest to find problems with. If the readout on the control panel says
+			&#39;Timeoutcm&#39;, it means something is wrong</p>
+		<p>Typically, the issue is caused by one of the following problems, in order from least to most hard to repair:</p>
+		<ul>
+			<li>The pins on the ultrasonic sensor are wired incorrectly. Check the pins above and make sure your wiring is
+				right</li>
+			<li>The resistor circuit is wired incorrectly. Check the setup guide to make sure everything is in place</li>
+			<li>The pins used on the pi are burnt out or broken - try changing the pins in the config file and the circuit
+			</li>
+			<li>The sensor itself is broken, and needs to be replaced</li>
+		</ul>
+	</div>
 
 	<script src="/static/js/shutdownhelper.js"></script>
 
 </body>
+
 </html>
