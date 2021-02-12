@@ -109,8 +109,9 @@ def setMotorPower(motor, power):
 
 
 def cleanup():
-    for name in MOTOR_NAMES:
-        name = 'motor_'+name.lower()
-        setMotorPower(name, 0)
-        motor_pwm[name].stop()
-    GPIO.cleanup()
+    if ON_PI:
+        for name in MOTOR_NAMES:
+            name = 'motor_'+name.lower()
+            setMotorPower(name, 0)
+            motor_pwm[name].stop()
+        GPIO.cleanup()

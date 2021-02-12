@@ -44,25 +44,30 @@ def index():
     bot.cleanup()
     bot.init()
     if request.method == 'POST':
+
+        power = int(request.form.get('Power'))
+        power = min(100,max(power,1))
+        print(power)
+
         if request.form.get('Forward') == 'Forward':
-            bot.setMotorPower("LEFT", 100)
-            bot.setMotorPower("RIGHT", 100)
+            bot.setMotorPower("LEFT", power)
+            bot.setMotorPower("RIGHT", power)
             print("Motor Forward")
         elif request.form.get('Stop') == 'Stop':
             bot.setMotorPower("LEFT", 0)
             bot.setMotorPower("RIGHT", 0)
             print("Motor Stop")
         elif request.form.get('Backwards') == 'Backwards':
-            bot.setMotorPower("LEFT", -100)
-            bot.setMotorPower("RIGHT", -100)
+            bot.setMotorPower("LEFT", -power)
+            bot.setMotorPower("RIGHT", -power)
             print("Motor Back")
         elif request.form.get("Left") == ("Left"):
-            bot.setMotorPower("LEFT", -100)
-            bot.setMotorPower("RIGHT", 100)
+            bot.setMotorPower("LEFT", -power)
+            bot.setMotorPower("RIGHT", power)
             print("Motor Left")
         elif request.form.get("Right") == ("Right"):
-            bot.setMotorPower("LEFT", 100)
-            bot.setMotorPower("RIGHT", -100)
+            bot.setMotorPower("LEFT", power)
+            bot.setMotorPower("RIGHT", -power)
             print("Motor Right")
     return render_template('index.html')
 

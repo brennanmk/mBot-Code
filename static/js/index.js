@@ -1,73 +1,32 @@
 'use strict';
 
-// Get elements
-const blocklyDiv = document.getElementById('blocklyDiv');
-const codePreviewDiv = document.getElementById('code-preview');
-const statusMessage = document.getElementById('status');
+// Slider
+const powerSlider = document.getElementById("motorPowerSlider");
+const powerIndicator = document.getElementById("motorPowerValue");
+powerSlider.oninput = function() {
+	powerIndicator.innerHTML = this.value;
+};
+powerSlider.oninput();
 
-// Inject workspace
-const workspace = Blockly.inject(blocklyDiv, {
-	toolbox: document.getElementById('toolbox'),
-	scrollbars: true,
-	trashcan: true,
-	grid: {
-		spacing: 20,
-		length: 3,
-		colour: '#ccc',
-		snap: true
-	}
-});
 
-// Setup realtime code preview
-function blocklyUpdateEvent(e) {
-	const code = Blockly.Python.workspaceToCode(workspace);
-	codePreviewDiv.textContent = code;
-	hljs.highlightBlock(codePreviewDiv);
-}
-workspace.addChangeListener(blocklyUpdateEvent);
+// Sensor value updater
+setInterval(function () {
+	$.ajax({
+		url: '/update',
+		type: 'POST',
+		success: function (response) {
+			//console.log(response);
+			$("#linesen").html(response["lineValue"]);
 
-// Send code on button press
-document.getElementById('run-code').onclick = function (e) {
-	const code = Blockly.Python.workspaceToCode(workspace);
-	statusMessage.textContent = 'Running...';
-
-	document.getElementById('stop-code').disabled = false;
-
-	$.post(
-		'/execute', {
-			action: 'execute',
-			code: code
-		},
-		// Return code
-		function (data, status) {
-			if (data == 'DONE') {
-				statusMessage.textContent = 'Execution completed!';
-			} else if (data == 'BUSY') {
-				statusMessage.textContent = 'The robot is already running code!';
-			} else if (data == 'ERROR') {
-				statusMessage.textContent = 'There was a problem running your code!';
-			} else if (data == 'STOPPED') {
-				statusMessage.textContent = 'Program stopped';
+			if (response["distValue"] < 0) {
+				$("#distsen").html("[Sensor Timeout]");
+			}else{
+				$("#distsen").html(response["distValue"]);
 			}
 
-
-			document.getElementById('stop-code').disabled = true;
-			setTimeout(() => statusMessage.textContent = 'Idle', 3000);
-		}
-	);
-}
-
-// Stop code manually
-document.getElementById('stop-code').onclick = function (e) {
-
-	$.post(
-		'/execute', {
-			action: 'stop'
 		},
-		// Return code
-		function (data, status) {
-
+		error: function (error) {
+			console.log(error);
 		}
-	)
-
-}
+	})
+}, 1000);

@@ -103,6 +103,12 @@ body {
   .item8 { grid-area: temp3; }
   .item9 { grid-area: temp4; }
   
+.sliderContainer {
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
   
   .grid-container {
   padding-top:40vh;
