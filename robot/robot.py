@@ -10,7 +10,7 @@ import robot.bot_config as config
 MOTOR_NAMES = ('LEFT', 'RIGHT')
 
 motor_pwm = {}
-
+override_power = 50
 
 def init():
     if ON_PI:
@@ -81,6 +81,18 @@ def getDistanceIN():
 
 def setLed(state):
     GPIO.output(config.PINS['misc/led'],1 if state else 0)
+
+def drive(dir):
+    setMotorPower('left',override_power*dir)
+    setMotorPower('right',override_power*dir)
+
+def turn(dir):
+    setMotorPower('left',override_power*-dir)
+    setMotorPower('right',override_power*dir)
+
+def stop():
+    setMotorPower('left',0)
+    setMotorPower('right',0)
 
 def setMotorPower(motor, power):
     # Validate inputs
