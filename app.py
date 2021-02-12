@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 import codecs
 import subprocess
-import robot.robot as robot
+import robot.robot as bot
 import robot.bot_config as config
 import threading
 import time
@@ -15,20 +15,20 @@ current_process = None
 killed = False
 running = True
 
-robot.init()
+bot.init()
 
 # Setup bot components
-lineValue = robot.getLineSensor()
+lineValue = bot.getLineSensor()
 
-distValue = robot.getDistanceCM()
+distValue = bot.getDistanceCM()
 
 # Thread used to update sensor values
 def updateSensor():
     global lineValue, distValue, running
     print('start of thread')
     while running:  # global variable to stop loop
-        lineValue = robot.getLineSensor()
-        distValue = robot.getDistanceCM()
+        lineValue = bot.getLineSensor()
+        distValue = bot.getDistanceCM()
         time.sleep(1)
     print('stop of thread')
 
@@ -41,26 +41,28 @@ def indexRefresh(device=None, action=None):
 # Used for motor control
 @app.route("/", methods=['POST'])
 def index():
+    bot.cleanup()
+    bot.init()
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
-            robot.setMotorPower("LEFT", 100)
-            robot.setMotorPower("RIGHT", 100)
+            bot.setMotorPower("LEFT", 100)
+            bot.setMotorPower("RIGHT", 100)
             print("Motor Forward")
         elif request.form.get('Stop') == 'Stop':
-            robot.setMotorPower("LEFT", 0)
-            robot.setMotorPower("RIGHT", 0)
+            bot.setMotorPower("LEFT", 0)
+            bot.setMotorPower("RIGHT", 0)
             print("Motor Stop")
         elif request.form.get('Backwards') == 'Backwards':
-            robot.setMotorPower("LEFT", -100)
-            robot.setMotorPower("RIGHT", -100)
+            bot.setMotorPower("LEFT", -100)
+            bot.setMotorPower("RIGHT", -100)
             print("Motor Back")
         elif request.form.get("Left") == ("Left"):
-            robot.setMotorPower("LEFT", -100)
-            robot.setMotorPower("RIGHT", 100)
+            bot.setMotorPower("LEFT", -100)
+            bot.setMotorPower("RIGHT", 100)
             print("Motor Left")
         elif request.form.get("Right") == ("Right"):
-            robot.setMotorPower("LEFT", 100)
-            robot.setMotorPower("RIGHT", -100)
+            bot.setMotorPower("LEFT", 100)
+            bot.setMotorPower("RIGHT", -100)
             print("Motor Right")
     return render_template('index.html')
 
@@ -123,7 +125,7 @@ def execute():
     
     elif action == 'shutdown':
         # Shut down the pi
-        robot.cleanup()
+        bot.cleanup()
 
         # Kill current process if it's running
         if current_process != None:
@@ -139,7 +141,7 @@ def execute():
 # Create a python file to execute
 def create_python_file(code):
 
-    # Append robot code
+    # Append bot code
     code = "import robot.robot as robot\nrobot.init()\nimport time\n" + \
         code + '\nrobot.cleanup()'
 
