@@ -95,15 +95,16 @@ def stop():
     setMotorPower('right',0)
 
 def setMotorPower(motor, power):
-    # Validate inputs
-    power = min(100, max(power, -100))
-    if motor not in MOTOR_NAMES:
-        return
+    if ON_PI:
+        # Validate inputs
+        power = min(100, max(power, -100))
+        if motor not in MOTOR_NAMES:
+            return
 
-    name = 'motor_'+motor.lower()
-    GPIO.output(config.PINS[name+'/dira'], power > 0)
-    GPIO.output(config.PINS[name+'/dirb'], power < 0)
-    motor_pwm[name].ChangeDutyCycle(abs(power))
+        name = 'motor_'+motor.lower()
+        GPIO.output(config.PINS[name+'/dira'], power > 0)
+        GPIO.output(config.PINS[name+'/dirb'], power < 0)
+        motor_pwm[name].ChangeDutyCycle(abs(power))
 
 # Cleanup robot
 

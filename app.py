@@ -22,6 +22,8 @@ lineValue = bot.getLineSensor()
 
 distValue = bot.getDistanceCM()
 
+power_prev = 50
+
 # Thread used to update sensor values
 def updateSensor():
     global lineValue, distValue, running
@@ -45,9 +47,14 @@ def index():
     bot.init()
     if request.method == 'POST':
 
-        power = int(request.form.get('Power'))
-        power = min(100,max(power,1))
-        print(power)
+        raw_power = request.form.get('Power')
+        power = 0
+        try:
+            power = int(raw_power)
+            power = min(100,max(power,1))
+            power_prev = power
+        except TypeError:
+            power = power_prev
 
         if request.form.get('Forward') == 'Forward':
             bot.setMotorPower("LEFT", power)
