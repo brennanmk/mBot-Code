@@ -46,7 +46,12 @@ def getLineSensor():
     else:
         return 0
 
+def getLeftMotorPower():
+    return config.PINS['motor_power/left']
 
+def getRightMotorPower():
+        return config.PINS['motor_power/right']
+    
 def getDistanceCM():
 
     if ON_PI:

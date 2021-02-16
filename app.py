@@ -6,6 +6,7 @@ import robot.robot as bot
 import robot.bot_config as config
 import threading
 import time
+import configparser
 
 # Setup flask app and web socket
 app = Flask(__name__)
@@ -22,7 +23,9 @@ lineValue = bot.getLineSensor()
 
 distValue = bot.getDistanceCM()
 
-power_prev = 50
+leftMotor = bot.getLeftMotorPower()
+rightMotor= bot.getRightMotorPower()
+
 
 # Thread used to update sensor values
 def updateSensor():
@@ -40,41 +43,52 @@ def indexRefresh(device=None, action=None):
     threading.Thread(target=updateSensor).start()
     return render_template('index.html')
 
+@app.route("/settings", methods=['GET', 'POST'])
+def settings():
+    config = configparser.RawConfigParser()
+    config.read('pins.ini')
+
+    if request.method == 'POST':
+        config.set('motor_power', 'right', request.form.get('rightMotor'))
+                    
+        config.set('motor_power', 'left', request.form.get('leftMotor'))
+
+        leftMotor = request.form.get('leftMotor')
+        rightMotor = request.form.get('rightMotor')
+        
+        # Writing our configuration file to 'example.ini'
+        with open('pins.ini', 'w') as configfile:
+            config.write(configfile)
+
+    return render_template('settings.html')
+
 # Used for motor control
 @app.route("/", methods=['POST'])
 def index():
     bot.cleanup()
     bot.init()
     if request.method == 'POST':
-
-        raw_power = request.form.get('Power')
-        power = 0
-        try:
-            power = int(raw_power)
-            power = min(100,max(power,1))
-            power_prev = power
-        except TypeError:
-            power = power_prev
-
+        print(leftMotor)
+        print(rightMotor)
         if request.form.get('Forward') == 'Forward':
-            bot.setMotorPower("LEFT", power)
-            bot.setMotorPower("RIGHT", power)
+            bot.setMotorPower("LEFT", 50)
+            bot.setMotorPower("RIGHT", 100)
             print("Motor Forward")
         elif request.form.get('Stop') == 'Stop':
             bot.setMotorPower("LEFT", 0)
             bot.setMotorPower("RIGHT", 0)
             print("Motor Stop")
         elif request.form.get('Backwards') == 'Backwards':
-            bot.setMotorPower("LEFT", -power)
-            bot.setMotorPower("RIGHT", -power)
+            bot.setMotorPower("LEFT", -leftMotor)
+            bot.setMotorPower("RIGHT", -rightMotor)
             print("Motor Back")
         elif request.form.get("Left") == ("Left"):
-            bot.setMotorPower("LEFT", -power)
-            bot.setMotorPower("RIGHT", power)
+            bot.setMotorPower("LEFT", -leftMotor)
+            bot.setMotorPower("RIGHT", rightMotor)
             print("Motor Left")
         elif request.form.get("Right") == ("Right"):
-            bot.setMotorPower("LEFT", power)
-            bot.setMotorPower("RIGHT", -power)
+            bot.setMotorPower("LEFT", leftMotor)
+            bot.setMotorPower("RIGHT", -rightMotor)
             print("Motor Right")
     return render_template('index.html')
 
