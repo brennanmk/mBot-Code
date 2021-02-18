@@ -32,8 +32,8 @@ def setupMotor(name):
     name = 'motor_'+name
     GPIO.setup(config.PINS[name+'/dira'], GPIO.OUT)
     GPIO.setup(config.PINS[name+'/dirb'], GPIO.OUT)
-    GPIO.setup(config.PINS[name+'/pwm'], GPIO.OUT)
-    motor_pwm[name] = GPIO.PWM(config.PINS[name+'/pwm'], 1000)
+    GPIO.setup(config.PINS[name+'/en'], GPIO.OUT)
+    motor_pwm[name] = GPIO.PWM(config.PINS[name+'/en'], 1000)
     # Set defaults
     GPIO.output(config.PINS[name+'/dira'], 0)
     GPIO.output(config.PINS[name+'/dirb'], 0)
@@ -53,7 +53,6 @@ def getRightMotorPower():
         return config.PINS['motor_power/right']
     
 def getDistanceCM():
-
     if ON_PI:
         pin_trigger = config.PINS['ultrasonic/trig']
         pin_echo = config.PINS['ultrasonic/echo']
@@ -102,9 +101,6 @@ def stop():
 def setMotorPower(motor, power):
     if ON_PI:
         # Validate inputs
-        power = min(100, max(power, -100))
-        if motor not in MOTOR_NAMES:
-            return
 
         name = 'motor_'+motor.lower()
         GPIO.output(config.PINS[name+'/dira'], power > 0)
@@ -117,7 +113,6 @@ def setMotorPower(motor, power):
 def cleanup():
     if ON_PI:
         for name in MOTOR_NAMES:
-            name = 'motor_'+name.lower()
             setMotorPower(name, 0)
-            motor_pwm[name].stop()
+            motor_pwm['motor_'+name.lower()].stop()
         GPIO.cleanup()

@@ -14,23 +14,27 @@
 </head>
 
 <body>
+          <div class="navbar">
+	    <a href="/">Controller</a>
+	    <a href="/blockly">Blockly</a>
+	    <div class="dropdown" style="float: right;">
+	      <button class="dropbtn">
+		<i class="fa fa-cog"></i>
+	      </button>
+	      
+	      <div class="dropdown-content" style="right:0;">
+		<a href="/docs">Documentation</a>
+		<a href="/settings">Settings</a>
+		<a href="#" id='shutdown'>Shut Down</a>
+	      </div>
+	      </div>
+              <a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></a>
+	      <a href="#" , style="float: right;" , id='run-code'>Run <i class="fa fa-play-circle"></i></a>
+	      <span id='status' style="float:right;">Idle</span>
 
-
-	<header>
-		<div class="navbar">
-			<a href="/">Controller</a>
-			<a href="/blockly">Blockly</a>
-			<a href="/docs">Docs</a>
-			<a href="/settings">Settings</a>
-			<a href="#" id='shutdown'>Shut Down</a>
-			<a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></a>
-				<a href="#" , style="float: right;" , id='run-code'>Run <i class="fa fa-play-circle"></i></a>
-				<span id='status' style="float:right;">Idle</span>
-		</div>
-	</header>
-
-	<div id='interface', style="padding-top:25px;">
-		<div id="blocklyDiv", style="padding-top:21px;"></div>
+	    </div>
+	<div id='interface'>
+		<div id="blocklyDiv", style="padding-top:0px;"></div>
 		<!-- Toolbox Definition XML begins here -->
 		<xml id="toolbox" style="display: none">
 			<category name="Logic">

@@ -52,9 +52,6 @@ def load_pin_config():
                 print("ERROR: Bad pin value @ '",pin_path,"'")
                 continue
 
-            if pin_index < 1 or pin_index > 27:
-                print("ERROR: Pin ",pin_index,"at path '",pin_path,"' is out of range")
-            
             # Ensure the pin is PWM 
             if item.find("pwm") == 0 and not pin_is_pwm(pin_index):
                 print("ERROR: Pin",pin_index,"at path '",pin_path,"' is not a PWM pin")

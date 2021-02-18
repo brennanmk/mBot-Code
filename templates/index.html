@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel='stylesheet' href='/static/css/index.css'>
-	<link rel='stylesheet' href='/static/css/highlightjs/default.css'>
+
 </head>
 
 
@@ -13,9 +13,18 @@
 	<div class="navbar">
 		<a href="/">Controller</a>
 		<a href="/blockly">Blockly</a>
-		<a href="/docs">Docs</a>
-                <a href="/settings">Settings</a>
-		<a href="#" id='shutdown'>Shut Down</a>
+		<div class="dropdown" style="float: right;">
+                  <button class="dropbtn">
+		    <i class="fa fa-cog"></i>
+		  </button>
+
+		  <div class="dropdown-content" style="right:0;">
+		    <a href="/docs">Documentation</a>
+		    <a href="/settings">Settings</a>
+		    <a href="#" id='shutdown'>Shut Down</a>
+		  </div>
+		</div> 
+
 	</div>
 	<form method="post" action="/">
 		<div class="grid-container">
@@ -30,25 +39,48 @@
 
 	<table class='sensors'>
 
-		</td>
-		</tr>
+</td>
+</tr>
 
-		<tr>
-			<td>Line Finder</th>
-			<td id="linesen"></td>
-		</tr>
-		<tr>
-			<td>Distance Sensor</td>
-			<td><span id="distsen">0</span>cm</td>
-		</tr>
+<tr>
+  <td>Line Finder</th>
+<td id="linesen"></td>
+</tr>
+<tr>
+  <td>Distance Sensor</td>
+  <td><span id="distsen">0</span>cm</td>
+</tr>
 
-	</table>
+</table>
 
 
-	<!-- Load main scripts -->
-	<script src="/static/js/lib/jquery.min.js"></script>
-	<script src="/static/js/index.js"></script>
-	<script src="/static/js/shutdownhelper.js"></script>
+<!-- Load main scripts -->
+<script src="/static/js/lib/jquery.min.js"></script>
+<!-- Sensor update script -->
+<script>
+  setInterval(function () {
+      $.ajax({
+	  url: '/update',
+	  type: 'POST',
+	  success: function (response) {
+	      console.log(response);
+	      $("#linesen").html(response["lineValue"]);
+
+	      if (response["distValue"] < 0) {
+		  $("#distsen").html("Timeout");
+	      }else{
+		  $("#distsen").html(response["distValue"]);
+	      }
+
+	  },
+	  error: function (error) {
+	      console.log(error);
+	  }
+      })
+  }, 1000);
+</script>
+
+<script src="/static/js/shutdownhelper.js"></script>
 
 </body>
 

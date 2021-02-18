@@ -45,6 +45,8 @@ def indexRefresh(device=None, action=None):
 
 @app.route("/settings", methods=['GET', 'POST'])
 def settings():
+    global leftMotor
+    global rightMotor
     config = configparser.RawConfigParser()
     config.read('pins.ini')
 
@@ -53,8 +55,8 @@ def settings():
                     
         config.set('motor_power', 'left', request.form.get('leftMotor'))
 
-        leftMotor = request.form.get('leftMotor')
-        rightMotor = request.form.get('rightMotor')
+        leftMotor = int(request.form.get('leftMotor'))
+        rightMotor = int(request.form.get('rightMotor'))
         
         # Writing our configuration file to 'example.ini'
         with open('pins.ini', 'w') as configfile:
@@ -65,14 +67,10 @@ def settings():
 # Used for motor control
 @app.route("/", methods=['POST'])
 def index():
-    bot.cleanup()
-    bot.init()
     if request.method == 'POST':
-        print(leftMotor)
-        print(rightMotor)
         if request.form.get('Forward') == 'Forward':
-            bot.setMotorPower("LEFT", 50)
-            bot.setMotorPower("RIGHT", 100)
+            bot.setMotorPower("LEFT", leftMotor)
+            bot.setMotorPower("RIGHT", rightMotor)
             print("Motor Forward")
         elif request.form.get('Stop') == 'Stop':
             bot.setMotorPower("LEFT", 0)

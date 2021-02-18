@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 
 	<title>Robot Control Panel</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/static/css/index.css">
 
 </head>
@@ -13,13 +14,22 @@
 <body>
 
 	<header>
-		<div class="navbar">
-			<a href="/">Controller</a>
-			<a href="/blockly">Blockly</a>
-			<a href="/docs">Docs</a>
-			<a href="/settings">Settings</a>
-			<a href="#" id='shutdown'>Shut Down</a>
-		</div>
+          <div class="navbar">
+	    <a href="/">Controller</a>
+	    <a href="/blockly">Blockly</a>
+	    <div class="dropdown" style="float: right;">
+	      <button class="dropbtn">
+		<i class="fa fa-cog"></i>
+	      </button>
+
+	      <div class="dropdown-content" style="right:0;">
+		<a href="/docs">Documentation</a>
+		<a href="/settings">Settings</a>
+		<a href="#" id='shutdown'>Shut Down</a>
+	      </div>
+	    </div>
+
+	            </div>
 	</header>
 
 	<div style="padding-top:25px;">
