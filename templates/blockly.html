@@ -14,68 +14,73 @@
 </head>
 
 <body>
-          <div class="navbar">
-	    <a href="/">Controller</a>
-	    <a href="/blockly">Blockly</a>
-	    <div class="dropdown" style="float: right;">
-	      <button class="dropbtn">
-		<i class="fa fa-cog"></i>
-	      </button>
-	      
-	      <div class="dropdown-content" style="right:0;">
-		<a href="/docs">Documentation</a>
-		<a href="/settings">Settings</a>
-		<a href="#" id='shutdown'>Shut Down</a>
-	      </div>
-	      </div>
-              <a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></a>
-	      <a href="#" , style="float: right;" , id='run-code'>Run <i class="fa fa-play-circle"></i></a>
-	      <span id='status' style="float:right;">Idle</span>
+	<div class="navbar">
+		<a href="/">Controller</a>
+		<a href="/blockly">Blockly</a>
 
-	    </div>
+		<div class="dropdown" style="float: right;">
+			<button class="dropbtn">
+				<i class="fa fa-cog"></i>
+			</button>
+
+			<div class="dropdown-content" style="right:0;">
+				<a href="/docs">Documentation</a>
+				<a href="/settings">Settings</a>
+				<a href="#" id='shutdown'>Shut Down</a>
+			</div>
+		</div>
+
+
+		<a href="#" , style="float: right;" id='stop-code' disabled>Stop <i class="fa fa-stop-circle"></i></a>
+		<a href="#" , style="float: right;" , id='run-code'>Run <i class="fa fa-play-circle"></i></a>
+		<span id='status' style="float:right;">Idle</span>
+
+		<span style='color:grey;' id='save-status'>Saved</span>
+
+	</div>
 	<div id='interface'>
-		<div id="blocklyDiv", style="padding-top:0px;"></div>
+		<div id="blocklyDiv" , style="padding-top:0px;"></div>
 		<!-- Toolbox Definition XML begins here -->
 		<xml id="toolbox" style="display: none">
 			<category name="Logic">
-			  <block type="controls_if"></block>
-			  <block type="logic_compare"></block>
-			  <block type="logic_operation"></block>
-			  <block type="logic_negate"></block>
-			  <block type="logic_boolean"></block>
+				<block type="controls_if"></block>
+				<block type="logic_compare"></block>
+				<block type="logic_operation"></block>
+				<block type="logic_negate"></block>
+				<block type="logic_boolean"></block>
 			</category>
 			<category name="Loops">
-			  <block type="controls_repeat_ext">
-				<value name="TIMES">
-				  <block type="math_number">
-					<field name="NUM">10</field>
-				  </block>
-				</value>
-			  </block>
-			  <block type="controls_whileUntil"></block>
+				<block type="controls_repeat_ext">
+					<value name="TIMES">
+						<block type="math_number">
+							<field name="NUM">10</field>
+						</block>
+					</value>
+				</block>
+				<block type="controls_whileUntil"></block>
 			</category>
 			<category name="Math">
-			  <block type="math_number"></block>
-			  <block type="math_arithmetic"></block>
-			  <block type="math_single"></block>
+				<block type="math_number"></block>
+				<block type="math_arithmetic"></block>
+				<block type="math_single"></block>
 			</category>
 			<category name="Text">
-			  <block type="text"></block>
-			  <block type="text_length"></block>
-			  <block type="text_print"></block>
-			  <block type="text_prompt_ext">
-				<value name="TEXT">
-				  <block type="text"></block>
-				</value>
-			  </block>
+				<block type="text"></block>
+				<block type="text_length"></block>
+				<block type="text_print"></block>
+				<block type="text_prompt_ext">
+					<value name="TEXT">
+						<block type="text"></block>
+					</value>
+				</block>
 			</category>
 			<category name="Time">
 				<block type="time_sleep">
 					<value name="TIME">
 						<block type="math_number">
-						  <field name="NUM">1</field>
+							<field name="NUM">1</field>
 						</block>
-					  </value>
+					</value>
 				</block>
 			</category>
 			<category name="Robot">
@@ -93,7 +98,7 @@
 					<value name="DURATION">
 						<block type="math_number">
 							<field name="NUM">1</field>
-						  </block>
+						</block>
 					</value>
 				</block>
 				<block type="robot_turn">
@@ -108,7 +113,7 @@
 					<value name="DURATION">
 						<block type="math_number">
 							<field name="NUM">1</field>
-						  </block>
+						</block>
 					</value>
 				</block>
 				<block type="robot_stop"></block>
@@ -116,7 +121,7 @@
 					<value name="POWER">
 						<block type="math_number">
 							<field name="NUM">100</field>
-						  </block>
+						</block>
 					</value>
 				</block>
 				<block type="robot_set_led"></block>
@@ -125,18 +130,18 @@
 				<block type="robot_set_motor">
 					<value name="POWER">
 						<block type="math_number">
-						  <field name="NUM">0</field>
+							<field name="NUM">0</field>
 						</block>
-					  </value>
+					</value>
 				</block>
 				<block type="robot_gpio_output"></block>
 				<block type="robot_gpio_input"></block>
 			</category>
 			<category name="Variables" custom="VARIABLE"></category>
 			<category name="Functions" custom="PROCEDURE"></category>
-		  </xml>
+		</xml>
 
-		  <pre id="code-preview" class="python">
+		<pre id="code-preview" class="python">
 		</pre>
 	</div>
 
