@@ -65,7 +65,7 @@ def settings():
     return render_template('settings.html')
 
 # Used for motor control
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         if request.form.get('Forward') == 'Forward':
@@ -88,6 +88,8 @@ def index():
             bot.setMotorPower("LEFT", leftMotor)
             bot.setMotorPower("RIGHT", -rightMotor)
             print("Motor Right")
+
+
     return render_template('index.html')
 
 
