@@ -12,6 +12,9 @@ MOTOR_NAMES = ('LEFT', 'RIGHT')
 motor_pwm = {}
 override_power = 50
 
+pulse_start = 0
+pulse_end = 0
+
 def init():
     if ON_PI:
         GPIO.setmode(GPIO.BCM)
@@ -53,6 +56,8 @@ def getRightMotorPower():
         return config.PINS['motor_power/right']
     
 def getDistanceCM():
+    global pulse_start
+    global pulse_end
     if ON_PI:
         pin_trigger = config.PINS['ultrasonic/trig']
         pin_echo = config.PINS['ultrasonic/echo']
