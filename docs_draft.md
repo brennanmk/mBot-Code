@@ -4,8 +4,12 @@
 Block | Description
 - | -
 **Basic Blocks** |
-![Robot Drive Block](/static/img/blocks/robot_drive.png) | Move the robot forwards or backwards at max speed for a certain number of seconds.
-![Robot Turn Block](/static/img/blocks/robot_turn.png) | Turn the robot right or left in place at max speed for a certain number of seconds.
+![Robot Drive Time Block](/static/img/blocks/robot_drive_time.png) | Move the robot forwards or backwards at the current speed for a certain number of seconds.
+![Robot Drive Block](/static/img/blocks/robot_drive.png) | Move the robot forwards or backwards at the current speed.
+![Robot Turn Time Block](/static/img/blocks/robot_turn_time.png) | Turn the robot right or left in place at the current speed for a certain number of seconds.
+![Robot Turn Block](/static/img/blocks/robot_turn.png) | Turn the robot right or left in place at the current speed.
+![Robot Stop Block](/static/img/blocks/robot_stop.png) | Stop the robot.
+![Robot Motor Power Block](/static/img/blocks/robot_power.png) | Set the motor speed for the robot, on a scale of 0-100.
 ![Robot Line Sensor Block](/static/img/blocks/robot_line.png) | Get the current value of the robot's line sensor - this will be either true or false.
 ![Robot Distance Sensor Block](/static/img/blocks/robot_distance.png) | Get the distance from the robot's ultrasonic sensor to the nearest obstacle in the units specified (either inches or centimeters). The number will be negative if there is an error.
 ![Robot LED Block](/static/img/blocks/robot_led.png) | Turn the built-in LED on or off on the robot. This is useful for debugging when something isn't working the way it's supposed to.

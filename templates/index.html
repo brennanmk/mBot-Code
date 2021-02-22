@@ -28,11 +28,11 @@
 	</div>
 	<form method="post" action="/">
 		<div class="grid-container">
-			<button class="button item1" value="Forward" name="Forward" id="Forward"><i class="fa fa-arrow-up"></i></button>
-			<button class="button item2" value="Left" name="Left"><i class="fa fa-arrow-left"></i></button>
-			<button class="button item3" value="Stop" name="Stop"><i class="fa fa-stop"></i></button>
-			<button class="button item4" value="Right" name="Right"><i class="fa fa-arrow-right"></i></button>
-			<button class="button item5" value="Backwards" name="Backwards"><i class="fa fa-arrow-down"></i></button>
+			<button class="button item1" value="Forward" name="Forward" id="BtnFowards"><i class="fa fa-arrow-up"></i></button>
+			<button class="button item2" value="Left" name="Left" id="BtnLeft"><i class="fa fa-arrow-left"></i></button>
+			<button class="button item3" value="Stop" name="Stop" id="BtnStop"><i class="fa fa-stop"></i></button>
+			<button class="button item4" value="Right" name="Right" id="BtnRight"><i class="fa fa-arrow-right"></i></button>
+			<button class="button item5" value="Backwards" name="Backwards" id="BtnBackwards"><i class="fa fa-arrow-down"></i></button>
 		</div>
 
 	</form>
@@ -56,29 +56,7 @@
 
 <!-- Load main scripts -->
 <script src="/static/js/lib/jquery.min.js"></script>
-<!-- Sensor update script -->
-<script>
-  setInterval(function () {
-      $.ajax({
-	  url: '/update',
-	  type: 'POST',
-	  success: function (response) {
-	      console.log(response);
-	      $("#linesen").html(response["lineValue"]);
-
-	      if (response["distValue"] < 0) {
-		  $("#distsen").html("Timeout");
-	      }else{
-		  $("#distsen").html(response["distValue"]);
-	      }
-
-	  },
-	  error: function (error) {
-	      console.log(error);
-	  }
-      })
-  }, 500);
-</script>
+<script src="/static/js/index.js"></script>
 
 <script src="/static/js/shutdownhelper.js"></script>
 
