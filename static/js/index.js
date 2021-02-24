@@ -1,33 +1,54 @@
 'use strict';
 
-// Slider
-/*const powerSlider = document.getElementById("motorPowerSlider");
-const powerIndicator = document.getElementById("motorPowerValue");
-powerSlider.oninput = function() {
-	powerIndicator.innerHTML = this.value;
-};
-powerSlider.oninput();*/
 
-// Arrow controls
-const ARROW_BUTTONS = {
-	ArrowUp: document.getElementById("BtnForwards"),
-	ArrowDown: document.getElementById("BtnBackwards"),
-	ArrowRight: document.getElementById("BtnRight"),
-	ArrowLeft: document.getElementById("BtnLeft")
+// Setup arrow buttons
+const DIRECTIONS = [ // These are the directions we need to address
+	'forwards',
+	'backwards',
+	'right',
+	'left',
+	'stop'
+];
+const KEYNAMES = [ // These are the arrow keys we can use
+	'ArrowUp',
+	'ArrowDown',
+	'ArrowRight',
+	'ArrowLeft',
+	'RobotStop'
+];
+let keyStates = {}; // States for keys
+let keyButtonMapping = {}; // Used to link keys to buttons
+
+for (let i=0;i<5;i++) {
+	const dir = DIRECTIONS[i];
+	const btn = document.getElementById("Btn"+(dir.charAt(0).toUpperCase() + dir.slice(1)));
+
+	btn.addEventListener('click',(e) => {
+		e.preventDefault();
+		$.getJSON('/drive',{direction:dir}).done((d) => {});
+	});
+
+	keyButtonMapping[KEYNAMES[i]] = btn;
 }
-const STOP_BUTTON = document.getElementById("BtnStop");
-// Add key listener
-document.addEventListener('keypress', (e) => {
-	if (e.code in ARROW_BUTTONS) {
-		ARROW_BUTTONS[e.code].click();
-	}
-});
-document.addEventListener('keyup', (e) => {
-	if (e.code in ARROW_BUTTONS) {
-		STOP_BUTTON.click();
+
+// Setup arrow keys
+document.addEventListener('keydown',(e) => {
+	if (KEYNAMES.includes(e.code) && !keyStates[e.code]) {
+		console.log(e.code);
+		keyStates[e.code] = true;
+
+		// Press the appropriate on-screen button
+		keyButtonMapping[e.code].click();
 	}
 });
 
+document.addEventListener('keyup',(e) => {
+	if (KEYNAMES.includes(e.code)) {
+		keyStates[e.code] = false;
+		// Stop the robot
+		keyButtonMapping['RobotStop'].click();
+	}
+});
 
 // Sensor value updater
 setInterval(function () {

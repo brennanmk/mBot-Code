@@ -16,6 +16,15 @@ current_process = None
 killed = False
 running = True
 
+# Motor power values
+MOTOR_DIR = {
+    'forwards':(1,1),
+    'backwards':(-1,-1),
+    'right':(1,-1),
+    'left':(-1,1),
+    'stop':(0,0)
+}
+
 bot.init()
 
 # Setup bot components
@@ -43,6 +52,21 @@ def indexRefresh(device=None, action=None):
     threading.Thread(target=updateSensor).start()
     return render_template('index.html')
 
+# Main page
+@app.route("/")
+def index():
+    return render_template('index.html')
+
+# Blockly editor HTML
+@app.route("/blockly", methods=['GET'])
+def blockly():
+    return render_template('blockly.html')
+
+# Documentation
+@app.route("/docs",methods=['GET'])
+def docs():
+    return render_template('docs.html')
+
 @app.route("/settings", methods=['GET', 'POST'])
 def settings():
     global leftMotor
@@ -64,33 +88,20 @@ def settings():
 
     return render_template('settings.html')
 
-# Used for motor control
-@app.route("/", methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        if request.form.get('Forward') == 'Forward':
-            bot.setMotorPower("LEFT", leftMotor)
-            bot.setMotorPower("RIGHT", rightMotor)
-            print("Motor Forward")
-        elif request.form.get('Stop') == 'Stop':
-            bot.setMotorPower("LEFT", 0)
-            bot.setMotorPower("RIGHT", 0)
-            print("Motor Stop")
-        elif request.form.get('Backwards') == 'Backwards':
-            bot.setMotorPower("LEFT", -leftMotor)
-            bot.setMotorPower("RIGHT", -rightMotor)
-            print("Motor Back")
-        elif request.form.get("Left") == ("Left"):
-            bot.setMotorPower("LEFT", -leftMotor)
-            bot.setMotorPower("RIGHT", rightMotor)
-            print("Motor Left")
-        elif request.form.get("Right") == ("Right"):
-            bot.setMotorPower("LEFT", leftMotor)
-            bot.setMotorPower("RIGHT", -rightMotor)
-            print("Motor Right")
 
+# Motor control
+@app.route('/drive')
+def btnForwards():
+    direction = request.args.get('direction')
+    # Get power for motors
+    pwr = MOTOR_DIR[direction]
+    # Assign power
+    bot.setMotorPower("LEFT", leftMotor * pwr[0])
+    bot.setMotorPower("RIGHT", rightMotor * pwr[1])
 
-    return render_template('index.html')
+    print(direction)
+
+    return ("Done")
 
 
 @app.route('/update', methods=['POST'])
@@ -99,15 +110,6 @@ def update():
         'title': 'Sensor Values',
         'lineValue': lineValue, 'distValue': distValue
     })
-
-# Blockly editor HTML
-@app.route("/blockly", methods=['GET'])
-def blockly():
-    return render_template('blockly.html')
-
-@app.route("/docs",methods=['GET'])
-def docs():
-    return render_template('docs.html')
 
 # Execute code
 @app.route("/execute", methods=['POST'])
