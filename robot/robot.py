@@ -120,4 +120,4 @@ def cleanup():
         for name in MOTOR_NAMES:
             setMotorPower(name, 0)
             motor_pwm['motor_'+name.lower()].stop()
-        GPIO.cleanup()
+
