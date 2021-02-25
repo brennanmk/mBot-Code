@@ -1,98 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='/static/css/index.css'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      .slidecontainer {
-          width: 100%;
-      }
 
-      .slider {
-          -webkit-appearance: none;
-	  margin-left: 25%;
-          width: 50%;
-          height: 5px;
-          background: #d3d3d3;
-          border-radius: 5px;
-          outline: none;
-          opacity: 0.7;
-          -webkit-transition: .2s;
-          transition: opacity .2s;
-      }
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='stylesheet' href='/static/css/index.css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .slidecontainer {
+      width: 100%;
+    }
 
-      .slider:hover {
-          opacity: 1;
-      }
+    .slider {
+      -webkit-appearance: none;
+      margin-left: 25%;
+      width: 50%;
+      height: 5px;
+      background: #d3d3d3;
+      border-radius: 5px;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
 
-      .slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 20px;
-          height: 20px;
-          background: #7289da;
-          cursor: pointer;
-      }
+    .slider:hover {
+      opacity: 1;
+    }
 
-      .slider::-moz-range-thumb {
-          appearance: none;
-	  width: $range-handle-size;
-	  height: $range-handle-size;
-	  border-radius: 50%;
-	  background: $range-handle-color;
-	  cursor: pointer;
-	  transition: background .15s ease-in-out;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="navbar">
-      <a href="/">Controller</a>
-      <a href="/blockly">Blockly</a>
-      <div class="dropdown" style="float: right;">
-	<button class="dropbtn">
-	  <i class="fa fa-cog"></i>
-	</button>
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #7289da;
+      cursor: pointer;
+    }
 
-	<div class="dropdown-content" style="right:0;">
-	  <a href="/docs">Documentation</a>
-	  <a href="/settings">Settings</a>
-	  <a href="#" id='shutdown'>Shut Down</a>
-	</div>
+    .slider::-moz-range-thumb {
+      appearance: none;
+      width: $range-handle-size;
+      height: $range-handle-size;
+      border-radius: 50%;
+      background: $range-handle-color;
+      cursor: pointer;
+      transition: background .15s ease-in-out;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <a href="/">Controller</a>
+    <a href="/blockly">Blockly</a>
+    <div class="dropdown" style="float: right;">
+      <button class="dropbtn">
+        <i class="fa fa-cog"></i>
+      </button>
+
+      <div class="dropdown-content" style="right:0;">
+        <a href="/docs">Documentation</a>
+        <a href="/settings">Settings</a>
+        <a href="#" id='shutdown'>Shut Down</a>
       </div>
+    </div>
 
-              </div>
-    
-    <form method="post" action="/settings">
-      
-      <div class="slidecontainer" style="padding-top: 30px;">
-	<p style="text-align: center;">Right Motor</p>
-	<input type="range" min="1" max="100" value="100" class="slider" id="leftMotor" name="leftMotor">
-	<p style="text-align: center;  padding-bottom: 50px;"><span id="left"></span></p>
-	<p style="text-align: center;">Left Motor</p>
-	<input type="range" min="1" max="100" value="100" class="slider" id="rightMotor" name="rightMotor">
-	<p style="text-align: center;  padding-bottom: 20px;"><span id="right"></span></p>
-      </div>
-      <input type="submit" class="button" value="Submit" style="margin-left: 25%;"/>
-    </form>
-    <script>
-      var slider1 = document.getElementById("leftMotor");
-      var slider2 = document.getElementById("rightMotor");
-      
-      var output1 = document.getElementById("left");
-      var output2 = document.getElementById("right");
-      
-      output1.innerHTML = slider1.value;
-      output2.innerHTML = slider2.value;
+  </div>
 
-      slider1.oninput = function() {
-          output1.innerHTML = this.value;
-      }
-      slider2.oninput = function() {
-	  output2.innerHTML = this.value;
-      }
-    </script>
+  <form method="post" action="/settings">
+    <div class="slidecontainer" style="padding-top: 30px;">
+      <p style="text-align: center;">Right Motor</p>
+      <input type="range" min="1" max="100" value="100" class="slider" id="leftMotor" name="leftMotor">
+      <p style="text-align: center;  padding-bottom: 50px;"><span id="left"></span></p>
+      <p style="text-align: center;">Left Motor</p>
+      <input type="range" min="1" max="100" value="100" class="slider" id="rightMotor" name="rightMotor">
+      <p style="text-align: center;  padding-bottom: 20px;"><span id="right"></span></p>
+    </div>
+    <input type="submit" class="button" value="Submit" style="margin-left: 25%;" />
+  </form>
+  <script src="/static/js/lib/cookie.min.js"></script>
+  <script src='static/js/settings.js'></script>
 
-  </body>
+</body>
+
 </html>
