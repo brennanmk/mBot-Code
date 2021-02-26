@@ -32,8 +32,8 @@ lineValue = bot.getLineSensor()
 
 distValue = bot.getDistanceCM()
 
-leftMotor = bot.getLeftMotorPower()
-rightMotor= bot.getRightMotorPower()
+motorSpeed = bot.getMotorSpeed()
+motorTilt = bot.getMotorTilt()
 
 
 # Thread used to update sensor values
@@ -69,20 +69,23 @@ def docs():
 
 @app.route("/settings", methods=['GET', 'POST'])
 def settings():
-    global leftMotor
-    global rightMotor
-    config = configparser.RawConfigParser()
-    config.read('pins.ini')
+    global motorSpeed
+    global motorTilt
 
     if request.method == 'POST':
-        config.set('motor_power', 'right', request.form.get('rightMotor'))
-                    
-        config.set('motor_power', 'left', request.form.get('leftMotor'))
+        config = configparser.RawConfigParser()
+        config.read('pins.ini')
 
-        leftMotor = int(request.form.get('leftMotor'))
-        rightMotor = int(request.form.get('rightMotor'))
+        motorSpeed = int(request.form.get('motorSpeed'))
+        motorTilt = float(request.form.get('motorTilt'))
+
+        config.set('motor_config', 'speed', motorSpeed)
+        config.set('motor_config', 'tilt', motorTilt)
+
+        bot.override_power = motorSpeed
+        bot.motor_tilt = motorTilt
         
-        # Writing our configuration file to 'example.ini'
+        # Update file
         with open('pins.ini', 'w') as configfile:
             config.write(configfile)
 
@@ -91,16 +94,13 @@ def settings():
 
 # Motor control
 @app.route('/drive')
-def btnForwards():
+def btnDrive():
     direction = request.args.get('direction')
     # Get power for motors
     pwr = MOTOR_DIR[direction]
     # Assign power
-    bot.setMotorPower("LEFT", leftMotor * pwr[0])
-    bot.setMotorPower("RIGHT", rightMotor * pwr[1])
-
-    print(direction)
-
+    bot.setMotorPower("LEFT", motorSpeed * pwr[0] * (1-max(0,-motorTilt)))
+    bot.setMotorPower("RIGHT", motorSpeed * pwr[1] * (1-max(0,motorTilt)))
     return ("Done")
 
 

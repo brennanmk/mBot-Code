@@ -11,6 +11,7 @@ MOTOR_NAMES = ('LEFT', 'RIGHT')
 
 motor_pwm = {}
 override_power = 50
+motor_tilt = 0
 
 pulse_start = 0
 pulse_end = 0
@@ -49,11 +50,11 @@ def getLineSensor():
     else:
         return 0
 
-def getLeftMotorPower():
-    return config.PINS['motor_power/left']
+def getMotorSpeed():
+    return override_power
 
-def getRightMotorPower():
-        return config.PINS['motor_power/right']
+def getMotorTilt():
+    return motor_tilt
     
 def getDistanceCM():
     global pulse_start
@@ -92,12 +93,12 @@ def setLed(state):
     GPIO.output(config.PINS['misc/led'],1 if state else 0)
 
 def drive(dir):
-    setMotorPower('left',override_power*dir)
-    setMotorPower('right',override_power*dir)
+    setMotorPower('left',override_power*dir * (1-max(0,-motor_tilt)))
+    setMotorPower('right',override_power*dir * (1-max(0,motor_tilt)))
 
 def turn(dir):
-    setMotorPower('left',override_power*-dir)
-    setMotorPower('right',override_power*dir)
+    setMotorPower('left',override_power*-dir * (1-max(0,-motor_tilt)))
+    setMotorPower('right',override_power*dir * (1-max(0,motor_tilt)))
 
 def stop():
     setMotorPower('left',0)
@@ -106,7 +107,6 @@ def stop():
 def setMotorPower(motor, power):
     if ON_PI:
         # Validate inputs
-
         name = 'motor_'+motor.lower()
         GPIO.output(config.PINS[name+'/dira'], power > 0)
         GPIO.output(config.PINS[name+'/dirb'], power < 0)

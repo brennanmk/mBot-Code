@@ -1,28 +1,28 @@
-var slider1 = document.getElementById("leftMotor");
-var slider2 = document.getElementById("rightMotor");
+const tiltSlider = document.getElementById("motorTiltSlider");
+const speedSlider = document.getElementById("motorSpeedSlider");
 
-var output1 = document.getElementById("left");
-var output2 = document.getElementById("right");
+const tiltOutput = document.getElementById("tiltReadout");
+const speedOutput = document.getElementById("speedReadout");
 
 
-slider1.oninput = function () {
-	output1.innerHTML = this.value;
+tiltSlider.oninput = function () {
+	tiltOutput.innerText = this.value;
 	saveSliderVals();
 }
-slider2.oninput = function () {
-	output2.innerHTML = this.value;
+speedSlider.oninput = function () {
+	speedOutput.innerHTML = this.value;
 	saveSliderVals();
 }
 
 function saveSliderVals() {
-	Cookies.set('slider1',slider1.value);
-	Cookies.set('slider2',slider2.value);
+	Cookies.set('tilt',tiltSlider.value);
+	Cookies.set('speed',speedSlider.value);
 }
 
 function loadSliderVals() {
-	slider1.value = Cookies.get('slider1') || 100;
-	slider2.value = Cookies.get('slider2') || 100;
-	output1.innerText = slider1.value;
-	output2.innerText = slider2.value;
+	tiltSlider.value = Cookies.get('tilt') || 0;
+	speedSlider.value = Cookies.get('speed') || 100;
+	tiltOutput.innerText = tiltSlider.value;
+	speedOutput.innerText = speedSlider.value;
 }
 loadSliderVals();
