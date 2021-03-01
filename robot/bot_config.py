@@ -1,6 +1,6 @@
 import configparser
 
-DEFAULT_PINS = {
+DEFAULT_CONFIG = {
     'motor_right':{
         'pwm':12,
         'dirA':16,
@@ -26,53 +26,53 @@ DEFAULT_PINS = {
 
 #NOTE: PINS ARE STORED IN BCM MODE
 PINS = {}
-
 MOTOR = {}
 
-def load_pin_config():
-    print("Loading pins from file...")
-    pin_cfg = configparser.ConfigParser()
+def load_config():
+    print("Loading config from file...")
+    cfg = configparser.ConfigParser()
 
     # Look for file
-    if not pin_cfg.read('pins.ini'):
+    if not cfg.read('pins.ini'):
         print('Bot config file missing, generating from defaults')
         # Copy defaults
-        for section in DEFAULT_PINS:
-            pin_cfg[section] = {}
-            for item in DEFAULT_PINS[section]:
-                pin_cfg[section][item] = str(DEFAULT_PINS[section][item])
+        for section in DEFAULT_CONFIG:
+            cfg[section] = {}
+            for item in DEFAULT_CONFIG[section]:
+                cfg[section][item] = str(DEFAULT_CONFIG[section][item])
         # Write to file
         with open('pins.ini','w') as file:
-            pin_cfg.write(file)
+            cfg.write(file)
 
     
     # Iterate over INI file and read data
-    for section in pin_cfg.sections():
-        for item in pin_cfg[section]:
+    for section in cfg.sections():
+        if section != 'motor_config':
+            for item in cfg[section]:
 
-            pin_path = section+"/"+item
-            # Ensure the pin is a number
-            try:
-                pin_index = int(pin_cfg[section][item])
-            except ValueError:
-                print("ERROR: Bad pin value @ '",pin_path,"'")
-                continue
+                path = section+"/"+item
+                # Ensure the pin is a number
+                try:
+                    index = int(cfg[section][item])
+                except ValueError:
+                    print("ERROR: Bad pin value @ '",path,"'")
+                    continue
 
-            # Ensure the pin is PWM 
-            if item.find("pwm") == 0 and not pin_is_pwm(pin_index):
-                print("ERROR: Pin",pin_index,"at path '",pin_path,"' is not a PWM pin")
-            else:
-                # Load em
-                PINS[pin_path] = pin_index
+                # Ensure the pin is PWM 
+                if item.find("pwm") == 0 and not pin_is_pwm(index):
+                    print("ERROR: Pin",index,"at path '",index,"' is not a PWM pin")
+                else:
+                    # Load em
+                    PINS[path] = index
     # Confirm load
     print("Done, found",len(PINS),"pins")
 
     # Load motor data
-    MOTOR['speed'] = pin_cfg['motor_config','speed']
-    MOTOR['tilt'] = pin_cfg['motor_config','tilt']
+    MOTOR['speed'] = cfg['motor_config','speed']
+    MOTOR['tilt'] = cfg['motor_config','tilt']
 
 # Check if a pin is a PWM pin
 def pin_is_pwm(pin):
     return pin in (18,12,19,13)
 
-load_pin_config()
+load_config()
