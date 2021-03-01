@@ -13,7 +13,8 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
+  font-family: 'Consolas';
 }
 
 #interface {
@@ -172,6 +173,12 @@ table.sensors {
 
 .item9 {
   grid-area: temp4;
+}
+
+#direction {
+  color: white;
+  font-size: 32px;
+  text-align: center;
 }
 
 .sliderContainer {

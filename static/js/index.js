@@ -18,13 +18,16 @@ const KEYNAMES = [ // These are the arrow keys we can use
 ];
 let keyStates = {}; // States for keys
 let keyButtonMapping = {}; // Used to link keys to buttons
+const directionLabel = document.getElementById('direction');
 
 for (let i=0;i<5;i++) {
 	const dir = DIRECTIONS[i];
-	const btn = document.getElementById("Btn"+(dir.charAt(0).toUpperCase() + dir.slice(1)));
+	const dirUpper = (dir.charAt(0).toUpperCase() + dir.slice(1));
+	const btn = document.getElementById("Btn"+dirUpper);
 
 	btn.addEventListener('click',(e) => {
 		e.preventDefault();
+		directionLabel.innerText = 'Moving: '+dirUpper;
 		$.getJSON('/drive',{direction:dir}).done((d) => {});
 	});
 
