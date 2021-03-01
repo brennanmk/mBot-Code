@@ -23,6 +23,8 @@ DEFAULT_PINS = {
 #NOTE: PINS ARE STORED IN BCM MODE
 PINS = {}
 
+MOTOR = {}
+
 def load_pin_config():
     print("Loading pins from file...")
     pin_cfg = configparser.ConfigParser()
@@ -61,9 +63,12 @@ def load_pin_config():
     # Confirm load
     print("Done, found",len(PINS),"pins")
 
+    # Load motor data
+    MOTOR['speed'] = pin_cfg['motor_config','speed']
+    MOTOR['tilt'] = pin_cfg['motor_config','tilt']
+
 # Check if a pin is a PWM pin
 def pin_is_pwm(pin):
     return pin in (18,12,19,13)
-
 
 load_pin_config()

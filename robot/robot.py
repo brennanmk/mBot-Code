@@ -17,6 +17,10 @@ pulse_start = 0
 pulse_end = 0
 
 def init():
+
+    override_power = config.MOTOR['speed']
+    motor_tilt = config.MOTOR['tilt']
+
     if ON_PI:
         GPIO.setmode(GPIO.BCM)
         # Setup line sensor

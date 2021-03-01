@@ -32,8 +32,8 @@ lineValue = bot.getLineSensor()
 
 distValue = bot.getDistanceCM()
 
-motorSpeed = bot.getMotorSpeed()
-motorTilt = bot.getMotorTilt()
+motorSpeed = config.MOTOR['speed']
+motorTilt = config.MOTOR['tilt']
 
 
 # Thread used to update sensor values
