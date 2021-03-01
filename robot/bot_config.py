@@ -26,7 +26,7 @@ DEFAULT_CONFIG = {
 
 #NOTE: PINS ARE STORED IN BCM MODE
 PINS = {}
-MOTOR = {'speed':100,'tilt:'0}
+MOTOR = {'speed':100,'tilt':0}
 
 def load_config():
     print("Loading config from file...")
@@ -66,8 +66,8 @@ def load_config():
                     PINS[path] = index
     
     # Load motor data
-    MOTOR['speed'] = cfg['motor_config','speed']
-    MOTOR['tilt'] = cfg['motor_config','tilt']
+    MOTOR['speed'] = cfg['motor_config'].getint('speed')
+    MOTOR['tilt'] = cfg['motor_config'].getfloat('tilt')
 
     # Confirm load
     print("Done, found",len(PINS),"pins")
