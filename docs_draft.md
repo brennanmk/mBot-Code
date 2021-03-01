@@ -20,6 +20,13 @@ Block | Description
 
 ---
 
+## Saving and Loading
+The editor will automatically save your work as you write code, so you don't have to worry about loosing your work. You can tell whether or not your session has been saved by the label in the toolbar.
+
+If you want to be able to save multiple scripts, under the 'Tools' option in the toolbar you may download your current script as a text file, and re-upload it, using the `Export` and `Import` buttons, respectively. Unless you really know what you're doing, it is advised to avoid modifying these text files on your own, as doing so can corrupt your scripts.
+
+---
+
 ## Raspberry Pi Zero
 ### Pins
 The WitBot is powered by a Raspberry Pi Zero W, which uses a section of pins called 'GPIO' (**G**eneral **P**urpose **I**nput and **O**utput). 
@@ -58,7 +65,7 @@ led = 2
 
 ## Troubleshooting
 ### Ultrasonic sensor
-The ultrasonic sensor will usually be the easiest to find problems with. If the readout on the control panel says 'Timeoutcm', it means something is wrong
+The ultrasonic sensor will usually be the easiest to find problems with. If the readout on the control panel says '[Timeout]cm', it means something is wrong
 
 Typically, the issue is caused by one of the following problems, in order from least to most hard to repair:
 - The pins on the ultrasonic sensor are wired incorrectly. Check the pins above and make sure your wiring is right

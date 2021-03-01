@@ -106,6 +106,14 @@
 			</tbody>
 		</table>
 		<hr>
+		<h2 id="saving-and-loading">Saving and Loading</h2>
+		<p>The editor will automatically save your work as you write code, so you don&#39;t have to worry about loosing
+			your work. You can tell whether or not your session has been saved by the label in the toolbar.</p>
+		<p>If you want to be able to save multiple scripts, under the &#39;Tools&#39; option in the toolbar you may
+			download your current script as a text file, and re-upload it, using the <code>Export</code> and
+			<code>Import</code> buttons, respectively. Unless you really know what you&#39;re doing, it is advised to
+			avoid modifying these text files on your own, as doing so can corrupt your scripts.</p>
+		<hr>
 		<h2 id="raspberry-pi-zero">Raspberry Pi Zero</h2>
 		<h3 id="pins">Pins</h3>
 		<p>The WitBot is powered by a Raspberry Pi Zero W, which uses a section of pins called &#39;GPIO&#39;
@@ -149,7 +157,7 @@
 		<h2 id="troubleshooting">Troubleshooting</h2>
 		<h3 id="ultrasonic-sensor">Ultrasonic sensor</h3>
 		<p>The ultrasonic sensor will usually be the easiest to find problems with. If the readout on the control panel
-			says &#39;Timeoutcm&#39;, it means something is wrong</p>
+			says &#39;[Timeout]cm&#39;, it means something is wrong</p>
 		<p>Typically, the issue is caused by one of the following problems, in order from least to most hard to repair:
 		</p>
 		<ul>
@@ -162,9 +170,8 @@
 			<li>The sensor itself is broken, and needs to be replaced</li>
 		</ul>
 
-	</div>
 
-	<script src="/static/js/shutdownhelper.js"></script>
+		<script src="/static/js/shutdownhelper.js"></script>
 
 </body>
 
