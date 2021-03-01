@@ -17,6 +17,10 @@ DEFAULT_PINS = {
     },
     'line':{
         'sense':21
+    },
+    'motor_config':{
+        'trim':0.0,
+        'speed':100
     }
 }
 
