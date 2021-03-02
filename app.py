@@ -189,7 +189,7 @@ def create_python_file(code):
 
 # Run a created python file
 def run_python_file(location):
-
+    bot.cleanup()
     global current_process
 
     # Generate command
@@ -205,7 +205,7 @@ def run_python_file(location):
     print(output[0])
 
     current_process = None
-
+    bot.init()
 
 # Program entrypoint
 if __name__ == '__main__':

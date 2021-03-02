@@ -10,7 +10,7 @@ import robot.bot_config as config
 MOTOR_NAMES = ('LEFT', 'RIGHT')
 
 motor_pwm = {}
-override_power = 50
+override_power = 100
 motor_tilt = 0
 
 pulse_start = 0
@@ -97,16 +97,16 @@ def setLed(state):
     GPIO.output(config.PINS['misc/led'],1 if state else 0)
 
 def drive(dir):
-    setMotorPower('left',override_power*dir * (1-max(0,-motor_tilt)))
-    setMotorPower('right',override_power*dir * (1-max(0,motor_tilt)))
+    setMotorPower('LEFT',override_power*dir * (1-max(0,-motor_tilt)))
+    setMotorPower('RIGHT',override_power*dir * (1-max(0,motor_tilt)))
 
 def turn(dir):
-    setMotorPower('left',override_power*-dir * (1-max(0,-motor_tilt)))
-    setMotorPower('right',override_power*dir * (1-max(0,motor_tilt)))
+    setMotorPower('LEFT',override_power*-dir * (1-max(0,-motor_tilt)))
+    setMotorPower('RIGHT',override_power*dir * (1-max(0,motor_tilt)))
 
 def stop():
-    setMotorPower('left',0)
-    setMotorPower('right',0)
+    setMotorPower('LEFT',0)
+    setMotorPower('RIGHT',0)
 
 def setMotorPower(motor, power):
     if ON_PI:
