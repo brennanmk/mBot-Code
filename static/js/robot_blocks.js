@@ -4,7 +4,7 @@ Blockly.Blocks['robot_get_line'] = {
     this.appendDummyInput()
       .appendField("Line sensor value");
     this.setOutput(true, "Boolean");
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -19,7 +19,7 @@ Blockly.Blocks['robot_get_distance'] = {
         ["in", "IN"]
       ]), "UNITS");
     this.setOutput(true, "Number");
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -38,7 +38,7 @@ Blockly.Blocks['robot_set_motor'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -74,7 +74,7 @@ Blockly.Blocks['robot_drive_time'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -90,7 +90,7 @@ Blockly.Blocks['robot_drive'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -107,7 +107,7 @@ Blockly.Blocks['robot_turn'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -129,7 +129,7 @@ Blockly.Blocks['robot_turn_time'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -143,7 +143,7 @@ Blockly.Blocks['robot_set_led'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -159,7 +159,7 @@ Blockly.Blocks['robot_gpio_output'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -172,7 +172,7 @@ Blockly.Blocks['robot_gpio_input'] = {
       .appendField(new Blockly.FieldNumber(1, 1, 27, 1), "PIN");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -183,7 +183,7 @@ Blockly.Blocks['robot_stop'] = {
       .appendField("Stop the robot");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -196,7 +196,7 @@ Blockly.Blocks['robot_motor_power'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(330);
+    this.setColour(20);
     this.setTooltip("");
     this.setHelpUrl("");
   }
