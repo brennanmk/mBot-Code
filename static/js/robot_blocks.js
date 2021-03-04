@@ -1,12 +1,14 @@
 // Define robot blocks
 Blockly.Blocks['robot_get_line'] = {
-  init: function () {
+  init: function() {
     this.appendDummyInput()
-      .appendField("Line sensor value");
+        .appendField("Line Sensor is over")
+        .appendField(new Blockly.FieldDropdown([["black","BLACK"], ["white","WHITE"]]), "COLOR");
+    this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(20);
-    this.setTooltip("");
-    this.setHelpUrl("");
+ this.setTooltip("");
+ this.setHelpUrl("");
   }
 };
 
@@ -204,7 +206,12 @@ Blockly.Blocks['robot_motor_power'] = {
 
 // Define block functionality
 Blockly.Python['robot_get_line'] = function (block) {
-  return ['robot.getLineSensor()', Blockly.Python.ORDER_NONE];
+  const dropdown_color = block.getFieldValue('COLOR');
+  let code = 'robot.getLineSensor()';
+  if (dropdown_color == 'BLACK') {
+    code = 'not ' + code;
+  }
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Python['robot_get_distance'] = function (block) {
