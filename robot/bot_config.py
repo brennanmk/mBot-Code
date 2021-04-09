@@ -1,5 +1,6 @@
 import configparser
 
+#Default configuration values incase pins.ini is not present
 DEFAULT_CONFIG = {
     'motor_right':{
         'pwm':12,
