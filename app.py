@@ -2,16 +2,18 @@ from flask import Flask, render_template, request, jsonify
 import os
 import codecs
 import subprocess
-import robot.robot as bot
-import robot.bot_config as config
 import threading
 import time
 import configparser
 
+#Interal Libraries Used to control the bot
+import robot.robot as bot
+import robot.bot_config as config
+
 # Setup flask app and web socket
 app = Flask(__name__)
 
-# Are we currently executing code?
+# Booleans to determine if code is currently being run
 current_process = None
 killed = False
 running = True
@@ -46,32 +48,34 @@ def updateSensor():
         time.sleep(1)
     print('stop of thread')
 
-# Index
+# Index Flask Code
 @app.route("/")
 def indexRefresh(device=None, action=None):
     threading.Thread(target=updateSensor).start()
     return render_template('index.html')
 
-# Main page
+# Main page Flask Code
 @app.route("/")
 def index():
     return render_template('index.html')
 
-# Blockly editor HTML
+# Blockly editor HTML Flask Code
 @app.route("/blockly", methods=['GET'])
 def blockly():
     return render_template('blockly.html')
 
-# Documentation
+# Documentation Flask Code
 @app.route("/docs",methods=['GET'])
 def docs():
     return render_template('docs.html')
 
+# Settings Flask Code
 @app.route("/settings", methods=['GET', 'POST'])
 def settings():
     global motorSpeed
     global motorTilt
 
+    # On hitting the submit button gather the new motor speed and tilt and then update the pins.ini file
     if request.method == 'POST':
         config = configparser.RawConfigParser()
         config.read('pins.ini')
@@ -85,14 +89,14 @@ def settings():
         bot.override_power = motorSpeed
         bot.motor_tilt = motorTilt
         
-        # Update file
+        # Update ini file with new speed and tilt values
         with open('pins.ini', 'w') as configfile:
             config.write(configfile)
 
     return render_template('settings.html')
 
 
-# Motor control
+# Motor control Flask Page
 @app.route('/drive')
 def btnDrive():
     direction = request.args.get('direction')
@@ -111,7 +115,7 @@ def update():
         'lineValue': lineValue, 'distValue': distValue
     })
 
-# Execute code
+# Execute Page Flask code
 @app.route("/execute", methods=['POST'])
 def execute():
 
