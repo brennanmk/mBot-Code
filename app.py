@@ -170,7 +170,7 @@ def execute():
 def create_python_file(code):
 
     # Append bot code
-    code = "import robot.robot as robot\nrobot.init()\nimport time\n" + \
+    code = "import robot.robot as robot\nimport RPi.GPIO as GPIO\nGPIO.setmode(GPIO.BCM)\nrobot.init()\nimport time\n" + \
         code + '\nrobot.cleanup()'
 
     file_path = os.path.join(os.getcwd(), 'temp.py')

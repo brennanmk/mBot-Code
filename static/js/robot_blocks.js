@@ -276,13 +276,13 @@ Blockly.Python['robot_set_led'] = function (block) {
 Blockly.Python['robot_gpio_output'] = function (block) {
   const number_pin = block.getFieldValue('PIN');
   const statements_value = Blockly.Python.valueToCode(block, 'VALUE', Blockly.Python.ORDER_ATOMIC);
-  return 'GPIO.output(' + number_pin + ',' + statements_value + ')';
+  return 'GPIO.setup(' + number_pin + ',GPIO.OUT)\nGPIO.output(' + number_pin + ',' + statements_value + ')\n';
 };
 
 Blockly.Python['robot_gpio_input'] = function (block) {
   const number_pin = block.getFieldValue('PIN');
   // TODO: Assemble Python into code variable.
-  const code = 'GPIO.input(' + number_pin + ')';
+  const code = 'GPIO.setup(' + number_pin + ',GPIO.OUT)\nGPIO.input(' + number_pin + ')\n';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };

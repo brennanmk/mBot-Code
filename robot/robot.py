@@ -29,6 +29,8 @@ def init():
         GPIO.setup(config.PINS['ultrasonic/trig'], GPIO.OUT)
         GPIO.setup(config.PINS['ultrasonic/echo'], GPIO.IN)
         GPIO.output(config.PINS['ultrasonic/trig'], 0)
+        # Setup LED
+        GPIO.setup(config.PINS['misc/led'], GPIO.OUT)
         # Setup motors
         for name in MOTOR_NAMES:
             setupMotor(name.lower())
